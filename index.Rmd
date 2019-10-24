@@ -1,12 +1,10 @@
 ---
-title: "Fisher's website"
-author: "Yuanzhi Yu"
-date: "2019/10/24"
-output: html_document
+title: "My awesome website"
+output: 
+  html_document:
+    toc: true
+    toc_float: true
 ---
 
-```{r setup, include=FALSE}
-knitr::opts_chunk$set(echo = TRUE)
-```
 
 This is fisher's website
