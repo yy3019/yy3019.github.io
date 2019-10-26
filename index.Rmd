@@ -1,18 +1,10 @@
----
-title: "Welcome to fisher website!"
-output: 
-  html_document:
-    toc: true
-    toc_float: true
----
+###  Hi!
+
+<img src="image/324.gif" style="width:60%"> 
 
 ***
 
-<img src="image/324.gif" style="width:60%">   Hi!    You come!
-
-***
-
-### Yuanzhi Yu(Fisher)
+## Yuanzhi Yu(Fisher)
 
 <img src="image/yyz.jpg" style="width:80%">
 
@@ -103,4 +95,5 @@ Expected May 2021
 
 *One’s real life is often the life that one does not lead.*
 <img src="image/pikachu.gif" style="width:80%"> 
+
 Life sucks, me cute.
