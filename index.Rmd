@@ -20,4 +20,4 @@ Phone: 1-646-284-6789
 ***
 ## Flexdashboard example
 
-I choose [NYC Restaurant Inspection Results]((NYC_Restaurant.html)). 
+I choose [NYC Restaurant Inspection Results](NYC_Restaurant.html). 
