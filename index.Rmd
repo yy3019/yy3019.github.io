@@ -21,9 +21,9 @@ Phone: 1-646-284-6789
 ***
 ### Resume
 
-[about me](Resume.html)
+Hi! You can learn about me here: [About me](Resume.html)
 
 ***
-## Flexdashboard example
+### Flexdashboard example
 
-I choose [NY NOAA](ny_noaa.html). 
+I choose [NY NOAA](dashboard.html)
