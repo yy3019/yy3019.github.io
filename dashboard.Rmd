@@ -1,0 +1,72 @@
+---
+title: "dashboard"
+output: 
+  flexdashboard::flex_dashboard:
+    orientation: columns
+    vertical_layout: fill
+---
+
+```{r setup, include=FALSE}
+library(flexdashboard)
+library(tidyverse)
+library(viridis)
+library(p8105.datasets)
+library(plotly)
+```
+
+```{r}
+set.seed(1)
+data("ny_noaa")
+ny_noaa = ny_noaa %>% 
+  separate(date, into = c("year", "month", "day"), sep = "-") %>% 
+  mutate(temp_max = as.numeric(tmax),
+         temp_min = as.numeric(tmin),
+         tmax = as.numeric(tmax),
+         tmin = as.numeric(tmin),
+         snow = round(snow*0.04*4)/4)
+```
+
+Column {data-width=650}
+-----------------------------------------------------------------------
+
+### The Temparature Change During a Year in CentralPark_NY (USW00094728)
+
+```{r The Temparature Change}
+ny_noaa %>% 
+  filter(id == "USW00094728") %>%
+  group_by(month,id,year) %>%
+  summarise(mean_temp = mean(tmax/10)) %>% 
+  ungroup %>%
+  mutate(text_label = str_c("Year: ", year,"\nMonth: ", month,"\nMean Temperature: ", mean_temp)) %>% 
+  plot_ly(x = ~month, y = ~mean_temp, type = "scatter", mode = "markers",
+          alpha = .5, color = ~year, 
+          text = ~text_label)
+```
+
+Column {data-width=350}
+-----------------------------------------------------------------------
+
+### Distributions of Precipitation by Year
+
+```{r Distributions of Precipitation}
+ny_noaa %>%
+  sample_n(5000, replace = FALSE) %>% 
+  filter(prcp > 0 & prcp < 200) %>%
+  mutate(text_label = str_c("Year: ", year, "\nPrecipitation: ", prcp)) %>% 
+  plot_ly(x = ~year, y = ~prcp, color = ~year, type = "box", 
+          text = ~text_label)
+```
+
+### Maximum Snowfall Reported by Year
+
+```{r Maximum Snowfall}
+ny_noaa %>%
+  sample_n(1000, replace = FALSE) %>% 
+  filter(snow > 0 & snow < 100) %>% 
+  group_by(year = as.factor(year)) %>% 
+  summarize(max_snow = max(snow)) %>% 
+  mutate(text_label = str_c("Year: ", year, "\nMaximum Snowfall: ", max_snow)) %>% 
+  plot_ly(x = ~year, y = ~max_snow, color = ~year, type = "bar",
+          text = ~text_label)
+```
+

@@ -1,4 +1,11 @@
-## Yuanzhi Yu(Fisher).
+---
+title: "Yuanzhi Yu (Fisher)"
+output: 
+  html_document:
+    toc: true
+    toc_depth: 6
+    toc_float: true
+---
 
 <img src="image/yyz.jpg" style="width:80%">
 

@@ -1,4 +1,10 @@
-# Yuanzhi Yu website
+---
+title: "Yuanzhi Yu"
+output: 
+  html_document:
+    toc: true
+    toc_float: true
+---
 
 <img src="image/324.gif" style="width:60%"> 
 
@@ -20,4 +26,4 @@ Phone: 1-646-284-6789
 ***
 ## Flexdashboard example
 
-I choose [NYC Restaurant Inspection Results](NYC_Restaurant.html). 
+I choose [NY NOAA](ny_noaa.html). 
