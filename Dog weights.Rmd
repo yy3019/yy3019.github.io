@@ -53,7 +53,7 @@ dogweights =
   mutate(gagne_lbs = round(as.numeric(gagne_lbs) + as.numeric(gagne_os)/16, digits = 2)) %>% 
   select(day_n, date, raisin_lbs, simone_lbs, gagne_lbs)
   
-dogweights[1:5] %>%
+dogweights[1:5,] %>%
   knitr::kable(align = 'c')
 ```
 
