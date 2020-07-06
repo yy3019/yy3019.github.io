@@ -1,0 +1,3670 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+
+<meta charset="utf-8" />
+<meta name="generator" content="pandoc" />
+<meta http-equiv="X-UA-Compatible" content="IE=EDGE" />
+
+
+
+
+<title>Dog Weights</title>
+
+<script src="site_libs/jquery-1.11.3/jquery.min.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link href="site_libs/bootstrap-3.3.5/css/flatly.min.css" rel="stylesheet" />
+<script src="site_libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/respond.min.js"></script>
+<script src="site_libs/jqueryui-1.11.4/jquery-ui.min.js"></script>
+<link href="site_libs/tocify-1.9.1/jquery.tocify.css" rel="stylesheet" />
+<script src="site_libs/tocify-1.9.1/jquery.tocify.js"></script>
+<script src="site_libs/navigation-1.1/tabsets.js"></script>
+<script src="site_libs/navigation-1.1/codefolding.js"></script>
+<link href="site_libs/highlightjs-9.12.0/default.css" rel="stylesheet" />
+<script src="site_libs/highlightjs-9.12.0/highlight.js"></script>
+<link href="site_libs/font-awesome-5.1.0/css/all.css" rel="stylesheet" />
+<link href="site_libs/font-awesome-5.1.0/css/v4-shims.css" rel="stylesheet" />
+
+<style type="text/css">code{white-space: pre;}</style>
+<style type="text/css">
+  pre:not([class]) {
+    background-color: white;
+  }
+</style>
+<script type="text/javascript">
+if (window.hljs) {
+  hljs.configure({languages: []});
+  hljs.initHighlightingOnLoad();
+  if (document.readyState && document.readyState === "complete") {
+    window.setTimeout(function() { hljs.initHighlighting(); }, 0);
+  }
+}
+</script>
+
+
+
+<style type="text/css">
+h1 {
+  font-size: 34px;
+}
+h1.title {
+  font-size: 38px;
+}
+h2 {
+  font-size: 30px;
+}
+h3 {
+  font-size: 24px;
+}
+h4 {
+  font-size: 18px;
+}
+h5 {
+  font-size: 16px;
+}
+h6 {
+  font-size: 12px;
+}
+.table th:not([align]) {
+  text-align: left;
+}
+</style>
+
+
+
+
+<style type = "text/css">
+.main-container {
+  max-width: 940px;
+  margin-left: auto;
+  margin-right: auto;
+}
+code {
+  color: inherit;
+  background-color: rgba(0, 0, 0, 0.04);
+}
+img {
+  max-width:100%;
+}
+.tabbed-pane {
+  padding-top: 12px;
+}
+.html-widget {
+  margin-bottom: 20px;
+}
+button.code-folding-btn:focus {
+  outline: none;
+}
+summary {
+  display: list-item;
+}
+</style>
+
+
+<style type="text/css">
+/* padding for bootstrap navbar */
+body {
+  padding-top: 60px;
+  padding-bottom: 40px;
+}
+/* offset scroll position for anchor links (for fixed navbar)  */
+.section h1 {
+  padding-top: 65px;
+  margin-top: -65px;
+}
+.section h2 {
+  padding-top: 65px;
+  margin-top: -65px;
+}
+.section h3 {
+  padding-top: 65px;
+  margin-top: -65px;
+}
+.section h4 {
+  padding-top: 65px;
+  margin-top: -65px;
+}
+.section h5 {
+  padding-top: 65px;
+  margin-top: -65px;
+}
+.section h6 {
+  padding-top: 65px;
+  margin-top: -65px;
+}
+.dropdown-submenu {
+  position: relative;
+}
+.dropdown-submenu>.dropdown-menu {
+  top: 0;
+  left: 100%;
+  margin-top: -6px;
+  margin-left: -1px;
+  border-radius: 0 6px 6px 6px;
+}
+.dropdown-submenu:hover>.dropdown-menu {
+  display: block;
+}
+.dropdown-submenu>a:after {
+  display: block;
+  content: " ";
+  float: right;
+  width: 0;
+  height: 0;
+  border-color: transparent;
+  border-style: solid;
+  border-width: 5px 0 5px 5px;
+  border-left-color: #cccccc;
+  margin-top: 5px;
+  margin-right: -10px;
+}
+.dropdown-submenu:hover>a:after {
+  border-left-color: #ffffff;
+}
+.dropdown-submenu.pull-left {
+  float: none;
+}
+.dropdown-submenu.pull-left>.dropdown-menu {
+  left: -100%;
+  margin-left: 10px;
+  border-radius: 6px 0 6px 6px;
+}
+</style>
+
+<script>
+// manage active state of menu based on current page
+$(document).ready(function () {
+  // active menu anchor
+  href = window.location.pathname
+  href = href.substr(href.lastIndexOf('/') + 1)
+  if (href === "")
+    href = "index.html";
+  var menuAnchor = $('a[href="' + href + '"]');
+
+  // mark it active
+  menuAnchor.parent().addClass('active');
+
+  // if it's got a parent navbar menu mark it active as well
+  menuAnchor.closest('li.dropdown').addClass('active');
+});
+</script>
+
+<!-- tabsets -->
+
+<style type="text/css">
+.tabset-dropdown > .nav-tabs {
+  display: inline-table;
+  max-height: 500px;
+  min-height: 44px;
+  overflow-y: auto;
+  background: white;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+}
+
+.tabset-dropdown > .nav-tabs > li.active:before {
+  content: "";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li.active:before {
+  content: "&#xe258;";
+  border: none;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open:before {
+  content: "";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.tabset-dropdown > .nav-tabs > li.active {
+  display: block;
+}
+
+.tabset-dropdown > .nav-tabs > li > a,
+.tabset-dropdown > .nav-tabs > li > a:focus,
+.tabset-dropdown > .nav-tabs > li > a:hover {
+  border: none;
+  display: inline-block;
+  border-radius: 4px;
+  background-color: transparent;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li {
+  display: block;
+  float: none;
+}
+
+.tabset-dropdown > .nav-tabs > li {
+  display: none;
+}
+</style>
+
+<!-- code folding -->
+<style type="text/css">
+.code-folding-btn { margin-bottom: 4px; }
+</style>
+
+
+
+<style type="text/css">
+
+#TOC {
+  margin: 25px 0px 20px 0px;
+}
+@media (max-width: 768px) {
+#TOC {
+  position: relative;
+  width: 100%;
+}
+}
+
+@media print {
+.toc-content {
+  /* see https://github.com/w3c/csswg-drafts/issues/4434 */
+  float: right;
+}
+}
+
+.toc-content {
+  padding-left: 30px;
+  padding-right: 40px;
+}
+
+div.main-container {
+  max-width: 1200px;
+}
+
+div.tocify {
+  width: 20%;
+  max-width: 260px;
+  max-height: 85%;
+}
+
+@media (min-width: 768px) and (max-width: 991px) {
+  div.tocify {
+    width: 25%;
+  }
+}
+
+@media (max-width: 767px) {
+  div.tocify {
+    width: 100%;
+    max-width: none;
+  }
+}
+
+.tocify ul, .tocify li {
+  line-height: 20px;
+}
+
+.tocify-subheader .tocify-item {
+  font-size: 0.90em;
+}
+
+.tocify .list-group-item {
+  border-radius: 0px;
+}
+
+
+</style>
+
+
+
+</head>
+
+<body>
+
+
+<div class="container-fluid main-container">
+
+
+<!-- setup 3col/9col grid for toc_float and main content  -->
+<div class="row-fluid">
+<div class="col-xs-12 col-sm-4 col-md-3">
+<div id="TOC" class="tocify">
+</div>
+</div>
+
+<div class="toc-content col-xs-12 col-sm-8 col-md-9">
+
+
+
+
+<div class="navbar navbar-default  navbar-fixed-top" role="navigation">
+  <div class="container">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="index.html">Home</a>
+    </div>
+    <div id="navbar" class="navbar-collapse collapse">
+      <ul class="nav navbar-nav">
+        
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+        <li>
+  <a href="Resume.html">Resume</a>
+</li>
+<li>
+  <a href="dashboard.html">Dashboard</a>
+</li>
+<li>
+  <a href="Dog weights.html">Dog weights</a>
+</li>
+<li>
+  <a href="mailto:&lt;yy3019@cumc.columbia.edu&gt;">
+    <span class="fa fa-envelope fa-lg"></span>
+     
+  </a>
+</li>
+<li>
+  <a href="http://github.com/yy3019/">
+    <span class="fa fa-github fa-lg"></span>
+     
+  </a>
+</li>
+      </ul>
+    </div><!--/.nav-collapse -->
+  </div><!--/.container -->
+</div><!--/.navbar -->
+
+<div class="fluid-row" id="header">
+
+<div class="btn-group pull-right">
+<button type="button" class="btn btn-default btn-xs dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><span>Code</span> <span class="caret"></span></button>
+<ul class="dropdown-menu" style="min-width: 50px;">
+<li><a id="rmd-show-all-code" href="#">Show All Code</a></li>
+<li><a id="rmd-hide-all-code" href="#">Hide All Code</a></li>
+</ul>
+</div>
+
+
+
+<h1 class="title toc-ignore">Dog Weights</h1>
+
+</div>
+
+
+<div id="motivation" class="section level1">
+<h1>Motivation</h1>
+<div id="import-and-clean-data" class="section level2">
+<h2>Import and clean data</h2>
+<pre class="r"><code>dogweights = 
+  read_excel(&quot;./data/dog _weights.xlsx&quot;, range = &quot;B3:E185&quot;) %&gt;%
+  janitor::clean_names() %&gt;% 
+  mutate(day_n = as.Date(date)-as.Date(&#39;2018-08-12&#39;)) %&gt;%
+  # separate(date, into = c(&quot;year&quot;, &quot;month&quot;, &quot;day&quot;), sep = &quot;-&quot;)
+  separate(raisin, into = c(&quot;raisin_lbs&quot;, &quot;raisin_os&quot;), sep = &quot; &quot;) %&gt;% 
+  mutate(raisin_lbs = round(as.numeric(raisin_lbs) + as.numeric(raisin_os)/16, digits = 2)) %&gt;%
+  
+  separate(simone, into = c(&quot;simone_lbs&quot;, &quot;simone_os&quot;), sep = &quot; &quot;) %&gt;%
+  mutate(simone_lbs = round(as.numeric(simone_lbs) + as.numeric(simone_os)/16, digits = 2)) %&gt;%
+  
+  separate(gagne, into = c(&quot;gagne_lbs&quot;, &quot;gagne_os&quot;), sep = &quot; &quot;) %&gt;%
+  mutate(gagne_lbs = round(as.numeric(gagne_lbs) + as.numeric(gagne_os)/16, digits = 2)) %&gt;% 
+  select(day_n, date, raisin_lbs, simone_lbs, gagne_lbs)
+  
+dogweights[1:5] %&gt;%
+  knitr::kable(align = &#39;c&#39;)</code></pre>
+<table>
+<thead>
+<tr>
+<th style="text-align:center;">
+day_n
+</th>
+<th style="text-align:center;">
+date
+</th>
+<th style="text-align:center;">
+raisin_lbs
+</th>
+<th style="text-align:center;">
+simone_lbs
+</th>
+<th style="text-align:center;">
+gagne_lbs
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center;">
+0 days
+</td>
+<td style="text-align:center;">
+2018-08-12
+</td>
+<td style="text-align:center;">
+19.75
+</td>
+<td style="text-align:center;">
+10.88
+</td>
+<td style="text-align:center;">
+10.62
+</td>
+</tr>
+<tr>
+<td style="text-align:center;">
+7 days
+</td>
+<td style="text-align:center;">
+2018-08-19
+</td>
+<td style="text-align:center;">
+20.19
+</td>
+<td style="text-align:center;">
+11.12
+</td>
+<td style="text-align:center;">
+10.75
+</td>
+</tr>
+<tr>
+<td style="text-align:center;">
+10 days
+</td>
+<td style="text-align:center;">
+2018-08-22
+</td>
+<td style="text-align:center;">
+20.25
+</td>
+<td style="text-align:center;">
+11.25
+</td>
+<td style="text-align:center;">
+10.81
+</td>
+</tr>
+<tr>
+<td style="text-align:center;">
+12 days
+</td>
+<td style="text-align:center;">
+2018-08-24
+</td>
+<td style="text-align:center;">
+19.81
+</td>
+<td style="text-align:center;">
+11.25
+</td>
+<td style="text-align:center;">
+11.06
+</td>
+</tr>
+<tr>
+<td style="text-align:center;">
+15 days
+</td>
+<td style="text-align:center;">
+2018-08-27
+</td>
+<td style="text-align:center;">
+19.38
+</td>
+<td style="text-align:center;">
+10.50
+</td>
+<td style="text-align:center;">
+10.38
+</td>
+</tr>
+<tr>
+<td style="text-align:center;">
+16 days
+</td>
+<td style="text-align:center;">
+2018-08-28
+</td>
+<td style="text-align:center;">
+NA
+</td>
+<td style="text-align:center;">
+NA
+</td>
+<td style="text-align:center;">
+NA
+</td>
+</tr>
+<tr>
+<td style="text-align:center;">
+17 days
+</td>
+<td style="text-align:center;">
+2018-08-29
+</td>
+<td style="text-align:center;">
+19.38
+</td>
+<td style="text-align:center;">
+11.00
+</td>
+<td style="text-align:center;">
+11.06
+</td>
+</tr>
+<tr>
+<td style="text-align:center;">
+18 days
+</td>
+<td style="text-align:center;">
+2018-08-30
+</td>
+<td style="text-align:center;">
+NA
+</td>
+<td style="text-align:center;">
+NA
+</td>
+<td style="text-align:center;">
+NA
+</td>
+</tr>
+<tr>
+<td style="text-align:center;">
+19 days
+</td>
+<td style="text-align:center;">
+2018-08-31
+</td>
+<td style="text-align:center;">
+19.56
+</td>
+<td style="text-align:center;">
+11.00
+</td>
+<td style="text-align:center;">
+10.75
+</td>
+</tr>
+<tr>
+<td style="text-align:center;">
+20 days
+</td>
+<td style="text-align:center;">
+2018-09-01
+</td>
+<td style="text-align:center;">
+NA
+</td>
+<td style="text-align:center;">
+NA
+</td>
+<td style="text-align:center;">
+NA
+</td>
+</tr>
+<tr>
+<td style="text-align:center;">
+21 days
+</td>
+<td style="text-align:center;">
+2018-09-02
+</td>
+<td style="text-align:center;">
+19.62
+</td>
+<td style="text-align:center;">
+10.81
+</td>
+<td style="text-align:center;">
+10.62
+</td>
+</tr>
+<tr>
+<td style="text-align:center;">
+22 days
+</td>
+<td style="text-align:center;">
+2018-09-03
+</td>
+<td style="text-align:center;">
+19.50
+</td>
+<td style="text-align:center;">
+10.94
+</td>
+<td style="text-align:center;">
+10.81
+</td>
+</tr>
+<tr>
+<td style="text-align:center;">
+23 days
+</td>
+<td style="text-align:center;">
+2018-09-04
+</td>
+<td style="text-align:center;">
+19.56
+</td>
+<td style="text-align:center;">
+11.00
+</td>
+<td style="text-align:center;">
+10.94
+</td>
+</tr>
+<tr>
+<td style="text-align:center;">
+24 days
+</td>
+<td style="text-align:center;">
+2018-09-05
+</td>
+<td style="text-align:center;">
+19.50
+</td>
+<td style="text-align:center;">
+11.12
+</td>
+<td style="text-align:center;">
+11.00
+</td>
+</tr>
+<tr>
+<td style="text-align:center;">
+25 days
+</td>
+<td style="text-align:center;">
+2018-09-06
+</td>
+<td style="text-align:center;">
+19.44
+</td>
+<td style="text-align:center;">
+11.00
+</td>
+<td style="text-align:center;">
+10.69
+</td>
+</tr>
+<tr>
+<td style="text-align:center;">
+26 days
+</td>
+<td style="text-align:center;">
+2018-09-07
+</td>
+<td style="text-align:center;">
+19.38
+</td>
+<td style="text-align:center;">
+11.06
+</td>
+<td style="text-align:center;">
+11.12
+</td>
+</tr>
+<tr>
+<td style="text-align:center;">
+27 days
+</td>
+<td style="text-align:center;">
+2018-09-08
+</td>
+<td style="text-align:center;">
+19.44
+</td>
+<td style="text-align:center;">
+11.25
+</td>
+<td style="text-align:center;">
+10.94
+</td>
+</tr>
+<tr>
+<td style="text-align:center;">
+28 days
+</td>
+<td style="text-align:center;">
+2018-09-09
+</td>
+<td style="text-align:center;">
+19.50
+</td>
+<td style="text-align:center;">
+11.12
+</td>
+<td style="text-align:center;">
+10.81
+</td>
+</tr>
+<tr>
+<td style="text-align:center;">
+29 days
+</td>
+<td style="text-align:center;">
+2018-09-10
+</td>
+<td style="text-align:center;">
+19.44
+</td>
+<td style="text-align:center;">
+11.12
+</td>
+<td style="text-align:center;">
+10.81
+</td>
+</tr>
+<tr>
+<td style="text-align:center;">
+30 days
+</td>
+<td style="text-align:center;">
+2018-09-11
+</td>
+<td style="text-align:center;">
+19.50
+</td>
+<td style="text-align:center;">
+10.94
+</td>
+<td style="text-align:center;">
+11.00
+</td>
+</tr>
+<tr>
+<td style="text-align:center;">
+31 days
+</td>
+<td style="text-align:center;">
+2018-09-12
+</td>
+<td style="text-align:center;">
+19.50
+</td>
+<td style="text-align:center;">
+11.06
+</td>
+<td style="text-align:center;">
+11.00
+</td>
+</tr>
+<tr>
+<td style="text-align:center;">
+32 days
+</td>
+<td style="text-align:center;">
+2018-09-13
+</td>
+<td style="text-align:center;">
+19.44
+</td>
+<td style="text-align:center;">
+11.19
+</td>
+<td style="text-align:center;">
+11.00
+</td>
+</tr>
+<tr>
+<td style="text-align:center;">
+33 days
+</td>
+<td style="text-align:center;">
+2018-09-14
+</td>
+<td style="text-align:center;">
+19.62
+</td>
+<td style="text-align:center;">
+11.06
+</td>
+<td style="text-align:center;">
+11.06
+</td>
+</tr>
+<tr>
+<td style="text-align:center;">
+34 days
+</td>
+<td style="text-align:center;">
+2018-09-15
+</td>
+<td style="text-align:center;">
+19.50
+</td>
+<td style="text-align:center;">
+NA
+</td>
+<td style="text-align:center;">
+NA
+</td>
+</tr>
+<tr>
+<td style="text-align:center;">
+35 days
+</td>
+<td style="text-align:center;">
+2018-09-16
+</td>
+<td style="text-align:center;">
+19.56
+</td>
+<td style="text-align:center;">
+11.00
+</td>
+<td style="text-align:center;">
+11.06
+</td>
+</tr>
+<tr>
+<td style="text-align:center;">
+50 days
+</td>
+<td style="text-align:center;">
+2018-10-01
+</td>
+<td style="text-align:center;">
+19.00
+</td>
+<td style="text-align:center;">
+10.25
+</td>
+<td style="text-align:center;">
+10.25
+</td>
+</tr>
+<tr>
+<td style="text-align:center;">
+51 days
+</td>
+<td style="text-align:center;">
+2018-10-02
+</td>
+<td style="text-align:center;">
+19.38
+</td>
+<td style="text-align:center;">
+11.00
+</td>
+<td style="text-align:center;">
+10.75
+</td>
+</tr>
+<tr>
+<td style="text-align:center;">
+52 days
+</td>
+<td style="text-align:center;">
+2018-10-03
+</td>
+<td style="text-align:center;">
+19.00
+</td>
+<td style="text-align:center;">
+10.62
+</td>
+<td style="text-align:center;">
+10.19
+</td>
+</tr>
+<tr>
+<td style="text-align:center;">
+53 days
+</td>
+<td style="text-align:center;">
+2018-10-04
+</td>
+<td style="text-align:center;">
+18.94
+</td>
+<td style="text-align:center;">
+10.56
+</td>
+<td style="text-align:center;">
+10.25
+</td>
+</tr>
+<tr>
+<td style="text-align:center;">
+58 days
+</td>
+<td style="text-align:center;">
+2018-10-09
+</td>
+<td style="text-align:center;">
+19.62
+</td>
+<td style="text-align:center;">
+10.62
+</td>
+<td style="text-align:center;">
+10.69
+</td>
+</tr>
+<tr>
+<td style="text-align:center;">
+59 days
+</td>
+<td style="text-align:center;">
+2018-10-10
+</td>
+<td style="text-align:center;">
+19.12
+</td>
+<td style="text-align:center;">
+10.69
+</td>
+<td style="text-align:center;">
+10.69
+</td>
+</tr>
+<tr>
+<td style="text-align:center;">
+60 days
+</td>
+<td style="text-align:center;">
+2018-10-11
+</td>
+<td style="text-align:center;">
+19.12
+</td>
+<td style="text-align:center;">
+10.69
+</td>
+<td style="text-align:center;">
+10.56
+</td>
+</tr>
+<tr>
+<td style="text-align:center;">
+61 days
+</td>
+<td style="text-align:center;">
+2018-10-12
+</td>
+<td style="text-align:center;">
+19.06
+</td>
+<td style="text-align:center;">
+10.62
+</td>
+<td style="text-align:center;">
+10.69
+</td>
+</tr>
+<tr>
+<td style="text-align:center;">
+62 days
+</td>
+<td style="text-align:center;">
+2018-10-13
+</td>
+<td style="text-align:center;">
+19.31
+</td>
+<td style="text-align:center;">
+10.56
+</td>
+<td style="text-align:center;">
+10.69
+</td>
+</tr>
+<tr>
+<td style="text-align:center;">
+63 days
+</td>
+<td style="text-align:center;">
+2018-10-14
+</td>
+<td style="text-align:center;">
+19.06
+</td>
+<td style="text-align:center;">
+10.56
+</td>
+<td style="text-align:center;">
+10.69
+</td>
+</tr>
+<tr>
+<td style="text-align:center;">
+64 days
+</td>
+<td style="text-align:center;">
+2018-10-15
+</td>
+<td style="text-align:center;">
+19.25
+</td>
+<td style="text-align:center;">
+NA
+</td>
+<td style="text-align:center;">
+NA
+</td>
+</tr>
+<tr>
+<td style="text-align:center;">
+65 days
+</td>
+<td style="text-align:center;">
+2018-10-16
+</td>
+<td style="text-align:center;">
+18.81
+</td>
+<td style="text-align:center;">
+10.69
+</td>
+<td style="text-align:center;">
+10.69
+</td>
+</tr>
+<tr>
+<td style="text-align:center;">
+66 days
+</td>
+<td style="text-align:center;">
+2018-10-17
+</td>
+<td style="text-align:center;">
+18.94
+</td>
+<td style="text-align:center;">
+10.81
+</td>
+<td style="text-align:center;">
+10.81
+</td>
+</tr>
+<tr>
+<td style="text-align:center;">
+67 days
+</td>
+<td style="text-align:center;">
+2018-10-18
+</td>
+<td style="text-align:center;">
+18.88
+</td>
+<td style="text-align:center;">
+10.75
+</td>
+<td style="text-align:center;">
+10.81
+</td>
+</tr>
+<tr>
+<td style="text-align:center;">
+71 days
+</td>
+<td style="text-align:center;">
+2018-10-22
+</td>
+<td style="text-align:center;">
+18.62
+</td>
+<td style="text-align:center;">
+10.25
+</td>
+<td style="text-align:center;">
+10.31
+</td>
+</tr>
+<tr>
+<td style="text-align:center;">
+72 days
+</td>
+<td style="text-align:center;">
+2018-10-23
+</td>
+<td style="text-align:center;">
+18.50
+</td>
+<td style="text-align:center;">
+10.50
+</td>
+<td style="text-align:center;">
+10.50
+</td>
+</tr>
+<tr>
+<td style="text-align:center;">
+73 days
+</td>
+<td style="text-align:center;">
+2018-10-24
+</td>
+<td style="text-align:center;">
+18.44
+</td>
+<td style="text-align:center;">
+10.75
+</td>
+<td style="text-align:center;">
+10.56
+</td>
+</tr>
+<tr>
+<td style="text-align:center;">
+74 days
+</td>
+<td style="text-align:center;">
+2018-10-25
+</td>
+<td style="text-align:center;">
+18.44
+</td>
+<td style="text-align:center;">
+10.50
+</td>
+<td style="text-align:center;">
+10.56
+</td>
+</tr>
+<tr>
+<td style="text-align:center;">
+75 days
+</td>
+<td style="text-align:center;">
+2018-10-26
+</td>
+<td style="text-align:center;">
+18.50
+</td>
+<td style="text-align:center;">
+10.50
+</td>
+<td style="text-align:center;">
+10.69
+</td>
+</tr>
+<tr>
+<td style="text-align:center;">
+76 days
+</td>
+<td style="text-align:center;">
+2018-10-27
+</td>
+<td style="text-align:center;">
+18.62
+</td>
+<td style="text-align:center;">
+10.56
+</td>
+<td style="text-align:center;">
+10.75
+</td>
+</tr>
+<tr>
+<td style="text-align:center;">
+77 days
+</td>
+<td style="text-align:center;">
+2018-10-28
+</td>
+<td style="text-align:center;">
+18.38
+</td>
+<td style="text-align:center;">
+10.56
+</td>
+<td style="text-align:center;">
+10.75
+</td>
+</tr>
+<tr>
+<td style="text-align:center;">
+78 days
+</td>
+<td style="text-align:center;">
+2018-10-29
+</td>
+<td style="text-align:center;">
+18.56
+</td>
+<td style="text-align:center;">
+10.50
+</td>
+<td style="text-align:center;">
+10.62
+</td>
+</tr>
+<tr>
+<td style="text-align:center;">
+79 days
+</td>
+<td style="text-align:center;">
+2018-10-30
+</td>
+<td style="text-align:center;">
+18.50
+</td>
+<td style="text-align:center;">
+10.56
+</td>
+<td style="text-align:center;">
+10.62
+</td>
+</tr>
+<tr>
+<td style="text-align:center;">
+80 days
+</td>
+<td style="text-align:center;">
+2018-10-31
+</td>
+<td style="text-align:center;">
+18.44
+</td>
+<td style="text-align:center;">
+10.62
+</td>
+<td style="text-align:center;">
+10.75
+</td>
+</tr>
+<tr>
+<td style="text-align:center;">
+81 days
+</td>
+<td style="text-align:center;">
+2018-11-01
+</td>
+<td style="text-align:center;">
+18.44
+</td>
+<td style="text-align:center;">
+10.50
+</td>
+<td style="text-align:center;">
+10.69
+</td>
+</tr>
+<tr>
+<td style="text-align:center;">
+82 days
+</td>
+<td style="text-align:center;">
+2018-11-02
+</td>
+<td style="text-align:center;">
+18.38
+</td>
+<td style="text-align:center;">
+10.38
+</td>
+<td style="text-align:center;">
+10.56
+</td>
+</tr>
+<tr>
+<td style="text-align:center;">
+84 days
+</td>
+<td style="text-align:center;">
+2018-11-04
+</td>
+<td style="text-align:center;">
+18.69
+</td>
+<td style="text-align:center;">
+10.69
+</td>
+<td style="text-align:center;">
+10.81
+</td>
+</tr>
+<tr>
+<td style="text-align:center;">
+85 days
+</td>
+<td style="text-align:center;">
+2018-11-05
+</td>
+<td style="text-align:center;">
+18.44
+</td>
+<td style="text-align:center;">
+10.50
+</td>
+<td style="text-align:center;">
+10.69
+</td>
+</tr>
+<tr>
+<td style="text-align:center;">
+86 days
+</td>
+<td style="text-align:center;">
+2018-11-06
+</td>
+<td style="text-align:center;">
+18.44
+</td>
+<td style="text-align:center;">
+10.50
+</td>
+<td style="text-align:center;">
+10.75
+</td>
+</tr>
+<tr>
+<td style="text-align:center;">
+98 days
+</td>
+<td style="text-align:center;">
+2018-11-18
+</td>
+<td style="text-align:center;">
+19.44
+</td>
+<td style="text-align:center;">
+NA
+</td>
+<td style="text-align:center;">
+NA
+</td>
+</tr>
+<tr>
+<td style="text-align:center;">
+99 days
+</td>
+<td style="text-align:center;">
+2018-11-19
+</td>
+<td style="text-align:center;">
+19.00
+</td>
+<td style="text-align:center;">
+10.44
+</td>
+<td style="text-align:center;">
+10.88
+</td>
+</tr>
+<tr>
+<td style="text-align:center;">
+100 days
+</td>
+<td style="text-align:center;">
+2018-11-20
+</td>
+<td style="text-align:center;">
+18.56
+</td>
+<td style="text-align:center;">
+10.44
+</td>
+<td style="text-align:center;">
+10.56
+</td>
+</tr>
+<tr>
+<td style="text-align:center;">
+101 days
+</td>
+<td style="text-align:center;">
+2018-11-21
+</td>
+<td style="text-align:center;">
+18.44
+</td>
+<td style="text-align:center;">
+10.50
+</td>
+<td style="text-align:center;">
+10.69
+</td>
+</tr>
+<tr>
+<td style="text-align:center;">
+102 days
+</td>
+<td style="text-align:center;">
+2018-11-22
+</td>
+<td style="text-align:center;">
+18.50
+</td>
+<td style="text-align:center;">
+10.31
+</td>
+<td style="text-align:center;">
+10.69
+</td>
+</tr>
+<tr>
+<td style="text-align:center;">
+103 days
+</td>
+<td style="text-align:center;">
+2018-11-23
+</td>
+<td style="text-align:center;">
+18.44
+</td>
+<td style="text-align:center;">
+10.25
+</td>
+<td style="text-align:center;">
+10.50
+</td>
+</tr>
+<tr>
+<td style="text-align:center;">
+109 days
+</td>
+<td style="text-align:center;">
+2018-11-29
+</td>
+<td style="text-align:center;">
+18.31
+</td>
+<td style="text-align:center;">
+10.50
+</td>
+<td style="text-align:center;">
+10.62
+</td>
+</tr>
+<tr>
+<td style="text-align:center;">
+111 days
+</td>
+<td style="text-align:center;">
+2018-12-01
+</td>
+<td style="text-align:center;">
+18.25
+</td>
+<td style="text-align:center;">
+10.38
+</td>
+<td style="text-align:center;">
+10.44
+</td>
+</tr>
+<tr>
+<td style="text-align:center;">
+114 days
+</td>
+<td style="text-align:center;">
+2018-12-04
+</td>
+<td style="text-align:center;">
+18.44
+</td>
+<td style="text-align:center;">
+10.38
+</td>
+<td style="text-align:center;">
+10.62
+</td>
+</tr>
+<tr>
+<td style="text-align:center;">
+115 days
+</td>
+<td style="text-align:center;">
+2018-12-05
+</td>
+<td style="text-align:center;">
+18.25
+</td>
+<td style="text-align:center;">
+10.44
+</td>
+<td style="text-align:center;">
+10.75
+</td>
+</tr>
+<tr>
+<td style="text-align:center;">
+116 days
+</td>
+<td style="text-align:center;">
+2018-12-06
+</td>
+<td style="text-align:center;">
+18.19
+</td>
+<td style="text-align:center;">
+10.50
+</td>
+<td style="text-align:center;">
+10.69
+</td>
+</tr>
+<tr>
+<td style="text-align:center;">
+118 days
+</td>
+<td style="text-align:center;">
+2018-12-08
+</td>
+<td style="text-align:center;">
+18.25
+</td>
+<td style="text-align:center;">
+10.69
+</td>
+<td style="text-align:center;">
+10.88
+</td>
+</tr>
+<tr>
+<td style="text-align:center;">
+119 days
+</td>
+<td style="text-align:center;">
+2018-12-09
+</td>
+<td style="text-align:center;">
+18.19
+</td>
+<td style="text-align:center;">
+10.50
+</td>
+<td style="text-align:center;">
+10.81
+</td>
+</tr>
+<tr>
+<td style="text-align:center;">
+120 days
+</td>
+<td style="text-align:center;">
+2018-12-10
+</td>
+<td style="text-align:center;">
+18.12
+</td>
+<td style="text-align:center;">
+NA
+</td>
+<td style="text-align:center;">
+NA
+</td>
+</tr>
+<tr>
+<td style="text-align:center;">
+121 days
+</td>
+<td style="text-align:center;">
+2018-12-11
+</td>
+<td style="text-align:center;">
+18.25
+</td>
+<td style="text-align:center;">
+10.62
+</td>
+<td style="text-align:center;">
+10.88
+</td>
+</tr>
+<tr>
+<td style="text-align:center;">
+127 days
+</td>
+<td style="text-align:center;">
+2018-12-17
+</td>
+<td style="text-align:center;">
+17.94
+</td>
+<td style="text-align:center;">
+10.12
+</td>
+<td style="text-align:center;">
+10.38
+</td>
+</tr>
+<tr>
+<td style="text-align:center;">
+128 days
+</td>
+<td style="text-align:center;">
+2018-12-18
+</td>
+<td style="text-align:center;">
+17.88
+</td>
+<td style="text-align:center;">
+10.12
+</td>
+<td style="text-align:center;">
+10.69
+</td>
+</tr>
+<tr>
+<td style="text-align:center;">
+149 days
+</td>
+<td style="text-align:center;">
+2019-01-08
+</td>
+<td style="text-align:center;">
+17.94
+</td>
+<td style="text-align:center;">
+10.00
+</td>
+<td style="text-align:center;">
+10.31
+</td>
+</tr>
+<tr>
+<td style="text-align:center;">
+151 days
+</td>
+<td style="text-align:center;">
+2019-01-10
+</td>
+<td style="text-align:center;">
+17.81
+</td>
+<td style="text-align:center;">
+10.12
+</td>
+<td style="text-align:center;">
+10.38
+</td>
+</tr>
+<tr>
+<td style="text-align:center;">
+155 days
+</td>
+<td style="text-align:center;">
+2019-01-14
+</td>
+<td style="text-align:center;">
+17.88
+</td>
+<td style="text-align:center;">
+9.94
+</td>
+<td style="text-align:center;">
+10.31
+</td>
+</tr>
+<tr>
+<td style="text-align:center;">
+158 days
+</td>
+<td style="text-align:center;">
+2019-01-17
+</td>
+<td style="text-align:center;">
+17.81
+</td>
+<td style="text-align:center;">
+10.38
+</td>
+<td style="text-align:center;">
+10.38
+</td>
+</tr>
+<tr>
+<td style="text-align:center;">
+160 days
+</td>
+<td style="text-align:center;">
+2019-01-19
+</td>
+<td style="text-align:center;">
+17.75
+</td>
+<td style="text-align:center;">
+10.12
+</td>
+<td style="text-align:center;">
+10.38
+</td>
+</tr>
+<tr>
+<td style="text-align:center;">
+NA
+</td>
+<td style="text-align:center;">
+NA
+</td>
+<td style="text-align:center;">
+17.81
+</td>
+<td style="text-align:center;">
+10.44
+</td>
+<td style="text-align:center;">
+10.56
+</td>
+</tr>
+<tr>
+<td style="text-align:center;">
+167 days
+</td>
+<td style="text-align:center;">
+2019-01-26
+</td>
+<td style="text-align:center;">
+18.00
+</td>
+<td style="text-align:center;">
+10.62
+</td>
+<td style="text-align:center;">
+10.56
+</td>
+</tr>
+<tr>
+<td style="text-align:center;">
+168 days
+</td>
+<td style="text-align:center;">
+2019-01-27
+</td>
+<td style="text-align:center;">
+18.06
+</td>
+<td style="text-align:center;">
+10.62
+</td>
+<td style="text-align:center;">
+10.62
+</td>
+</tr>
+<tr>
+<td style="text-align:center;">
+169 days
+</td>
+<td style="text-align:center;">
+2019-01-28
+</td>
+<td style="text-align:center;">
+17.94
+</td>
+<td style="text-align:center;">
+10.50
+</td>
+<td style="text-align:center;">
+10.38
+</td>
+</tr>
+<tr>
+<td style="text-align:center;">
+176 days
+</td>
+<td style="text-align:center;">
+2019-02-04
+</td>
+<td style="text-align:center;">
+18.06
+</td>
+<td style="text-align:center;">
+10.62
+</td>
+<td style="text-align:center;">
+10.81
+</td>
+</tr>
+<tr>
+<td style="text-align:center;">
+178 days
+</td>
+<td style="text-align:center;">
+2019-02-06
+</td>
+<td style="text-align:center;">
+18.06
+</td>
+<td style="text-align:center;">
+10.88
+</td>
+<td style="text-align:center;">
+10.88
+</td>
+</tr>
+<tr>
+<td style="text-align:center;">
+180 days
+</td>
+<td style="text-align:center;">
+2019-02-08
+</td>
+<td style="text-align:center;">
+18.00
+</td>
+<td style="text-align:center;">
+10.56
+</td>
+<td style="text-align:center;">
+10.69
+</td>
+</tr>
+<tr>
+<td style="text-align:center;">
+182 days
+</td>
+<td style="text-align:center;">
+2019-02-10
+</td>
+<td style="text-align:center;">
+17.94
+</td>
+<td style="text-align:center;">
+10.62
+</td>
+<td style="text-align:center;">
+10.69
+</td>
+</tr>
+<tr>
+<td style="text-align:center;">
+185 days
+</td>
+<td style="text-align:center;">
+2019-02-13
+</td>
+<td style="text-align:center;">
+18.06
+</td>
+<td style="text-align:center;">
+10.62
+</td>
+<td style="text-align:center;">
+10.81
+</td>
+</tr>
+<tr>
+<td style="text-align:center;">
+187 days
+</td>
+<td style="text-align:center;">
+2019-02-15
+</td>
+<td style="text-align:center;">
+17.88
+</td>
+<td style="text-align:center;">
+NA
+</td>
+<td style="text-align:center;">
+NA
+</td>
+</tr>
+<tr>
+<td style="text-align:center;">
+198 days
+</td>
+<td style="text-align:center;">
+2019-02-26
+</td>
+<td style="text-align:center;">
+17.81
+</td>
+<td style="text-align:center;">
+10.38
+</td>
+<td style="text-align:center;">
+10.44
+</td>
+</tr>
+<tr>
+<td style="text-align:center;">
+200 days
+</td>
+<td style="text-align:center;">
+2019-02-28
+</td>
+<td style="text-align:center;">
+17.62
+</td>
+<td style="text-align:center;">
+10.25
+</td>
+<td style="text-align:center;">
+10.31
+</td>
+</tr>
+<tr>
+<td style="text-align:center;">
+203 days
+</td>
+<td style="text-align:center;">
+2019-03-03
+</td>
+<td style="text-align:center;">
+17.44
+</td>
+<td style="text-align:center;">
+10.31
+</td>
+<td style="text-align:center;">
+10.19
+</td>
+</tr>
+<tr>
+<td style="text-align:center;">
+205 days
+</td>
+<td style="text-align:center;">
+2019-03-05
+</td>
+<td style="text-align:center;">
+17.56
+</td>
+<td style="text-align:center;">
+10.44
+</td>
+<td style="text-align:center;">
+10.50
+</td>
+</tr>
+<tr>
+<td style="text-align:center;">
+219 days
+</td>
+<td style="text-align:center;">
+2019-03-19
+</td>
+<td style="text-align:center;">
+18.06
+</td>
+<td style="text-align:center;">
+9.94
+</td>
+<td style="text-align:center;">
+9.88
+</td>
+</tr>
+<tr>
+<td style="text-align:center;">
+221 days
+</td>
+<td style="text-align:center;">
+2019-03-21
+</td>
+<td style="text-align:center;">
+18.06
+</td>
+<td style="text-align:center;">
+10.12
+</td>
+<td style="text-align:center;">
+10.06
+</td>
+</tr>
+<tr>
+<td style="text-align:center;">
+223 days
+</td>
+<td style="text-align:center;">
+2019-03-23
+</td>
+<td style="text-align:center;">
+17.94
+</td>
+<td style="text-align:center;">
+10.06
+</td>
+<td style="text-align:center;">
+10.06
+</td>
+</tr>
+<tr>
+<td style="text-align:center;">
+225 days
+</td>
+<td style="text-align:center;">
+2019-03-25
+</td>
+<td style="text-align:center;">
+17.94
+</td>
+<td style="text-align:center;">
+10.06
+</td>
+<td style="text-align:center;">
+10.06
+</td>
+</tr>
+<tr>
+<td style="text-align:center;">
+231 days
+</td>
+<td style="text-align:center;">
+2019-03-31
+</td>
+<td style="text-align:center;">
+17.81
+</td>
+<td style="text-align:center;">
+10.44
+</td>
+<td style="text-align:center;">
+10.38
+</td>
+</tr>
+<tr>
+<td style="text-align:center;">
+236 days
+</td>
+<td style="text-align:center;">
+2019-04-05
+</td>
+<td style="text-align:center;">
+17.81
+</td>
+<td style="text-align:center;">
+10.25
+</td>
+<td style="text-align:center;">
+10.44
+</td>
+</tr>
+<tr>
+<td style="text-align:center;">
+238 days
+</td>
+<td style="text-align:center;">
+2019-04-07
+</td>
+<td style="text-align:center;">
+17.88
+</td>
+<td style="text-align:center;">
+10.25
+</td>
+<td style="text-align:center;">
+10.44
+</td>
+</tr>
+<tr>
+<td style="text-align:center;">
+240 days
+</td>
+<td style="text-align:center;">
+2019-04-09
+</td>
+<td style="text-align:center;">
+17.94
+</td>
+<td style="text-align:center;">
+10.38
+</td>
+<td style="text-align:center;">
+10.44
+</td>
+</tr>
+<tr>
+<td style="text-align:center;">
+242 days
+</td>
+<td style="text-align:center;">
+2019-04-11
+</td>
+<td style="text-align:center;">
+17.94
+</td>
+<td style="text-align:center;">
+10.38
+</td>
+<td style="text-align:center;">
+10.38
+</td>
+</tr>
+<tr>
+<td style="text-align:center;">
+246 days
+</td>
+<td style="text-align:center;">
+2019-04-15
+</td>
+<td style="text-align:center;">
+17.62
+</td>
+<td style="text-align:center;">
+9.94
+</td>
+<td style="text-align:center;">
+9.94
+</td>
+</tr>
+<tr>
+<td style="text-align:center;">
+252 days
+</td>
+<td style="text-align:center;">
+2019-04-21
+</td>
+<td style="text-align:center;">
+17.62
+</td>
+<td style="text-align:center;">
+10.31
+</td>
+<td style="text-align:center;">
+10.12
+</td>
+</tr>
+<tr>
+<td style="text-align:center;">
+255 days
+</td>
+<td style="text-align:center;">
+2019-04-24
+</td>
+<td style="text-align:center;">
+17.69
+</td>
+<td style="text-align:center;">
+10.38
+</td>
+<td style="text-align:center;">
+10.19
+</td>
+</tr>
+<tr>
+<td style="text-align:center;">
+261 days
+</td>
+<td style="text-align:center;">
+2019-04-30
+</td>
+<td style="text-align:center;">
+17.56
+</td>
+<td style="text-align:center;">
+10.06
+</td>
+<td style="text-align:center;">
+9.81
+</td>
+</tr>
+<tr>
+<td style="text-align:center;">
+264 days
+</td>
+<td style="text-align:center;">
+2019-05-03
+</td>
+<td style="text-align:center;">
+17.50
+</td>
+<td style="text-align:center;">
+10.31
+</td>
+<td style="text-align:center;">
+10.06
+</td>
+</tr>
+<tr>
+<td style="text-align:center;">
+267 days
+</td>
+<td style="text-align:center;">
+2019-05-06
+</td>
+<td style="text-align:center;">
+17.56
+</td>
+<td style="text-align:center;">
+10.06
+</td>
+<td style="text-align:center;">
+10.06
+</td>
+</tr>
+<tr>
+<td style="text-align:center;">
+271 days
+</td>
+<td style="text-align:center;">
+2019-05-10
+</td>
+<td style="text-align:center;">
+17.25
+</td>
+<td style="text-align:center;">
+10.19
+</td>
+<td style="text-align:center;">
+10.12
+</td>
+</tr>
+<tr>
+<td style="text-align:center;">
+278 days
+</td>
+<td style="text-align:center;">
+2019-05-17
+</td>
+<td style="text-align:center;">
+17.50
+</td>
+<td style="text-align:center;">
+10.25
+</td>
+<td style="text-align:center;">
+10.06
+</td>
+</tr>
+<tr>
+<td style="text-align:center;">
+292 days
+</td>
+<td style="text-align:center;">
+2019-05-31
+</td>
+<td style="text-align:center;">
+17.25
+</td>
+<td style="text-align:center;">
+9.88
+</td>
+<td style="text-align:center;">
+9.50
+</td>
+</tr>
+<tr>
+<td style="text-align:center;">
+300 days
+</td>
+<td style="text-align:center;">
+2019-06-08
+</td>
+<td style="text-align:center;">
+18.06
+</td>
+<td style="text-align:center;">
+10.44
+</td>
+<td style="text-align:center;">
+9.88
+</td>
+</tr>
+<tr>
+<td style="text-align:center;">
+304 days
+</td>
+<td style="text-align:center;">
+2019-06-12
+</td>
+<td style="text-align:center;">
+17.69
+</td>
+<td style="text-align:center;">
+10.31
+</td>
+<td style="text-align:center;">
+9.56
+</td>
+</tr>
+<tr>
+<td style="text-align:center;">
+307 days
+</td>
+<td style="text-align:center;">
+2019-06-15
+</td>
+<td style="text-align:center;">
+17.75
+</td>
+<td style="text-align:center;">
+10.25
+</td>
+<td style="text-align:center;">
+9.50
+</td>
+</tr>
+<tr>
+<td style="text-align:center;">
+313 days
+</td>
+<td style="text-align:center;">
+2019-06-21
+</td>
+<td style="text-align:center;">
+18.25
+</td>
+<td style="text-align:center;">
+10.56
+</td>
+<td style="text-align:center;">
+9.56
+</td>
+</tr>
+<tr>
+<td style="text-align:center;">
+325 days
+</td>
+<td style="text-align:center;">
+2019-07-03
+</td>
+<td style="text-align:center;">
+18.00
+</td>
+<td style="text-align:center;">
+10.00
+</td>
+<td style="text-align:center;">
+9.31
+</td>
+</tr>
+<tr>
+<td style="text-align:center;">
+330 days
+</td>
+<td style="text-align:center;">
+2019-07-08
+</td>
+<td style="text-align:center;">
+18.06
+</td>
+<td style="text-align:center;">
+10.69
+</td>
+<td style="text-align:center;">
+9.38
+</td>
+</tr>
+<tr>
+<td style="text-align:center;">
+338 days
+</td>
+<td style="text-align:center;">
+2019-07-16
+</td>
+<td style="text-align:center;">
+18.38
+</td>
+<td style="text-align:center;">
+10.44
+</td>
+<td style="text-align:center;">
+8.94
+</td>
+</tr>
+<tr>
+<td style="text-align:center;">
+341 days
+</td>
+<td style="text-align:center;">
+2019-07-19
+</td>
+<td style="text-align:center;">
+18.12
+</td>
+<td style="text-align:center;">
+10.38
+</td>
+<td style="text-align:center;">
+9.00
+</td>
+</tr>
+<tr>
+<td style="text-align:center;">
+345 days
+</td>
+<td style="text-align:center;">
+2019-07-23
+</td>
+<td style="text-align:center;">
+18.19
+</td>
+<td style="text-align:center;">
+10.25
+</td>
+<td style="text-align:center;">
+8.75
+</td>
+</tr>
+<tr>
+<td style="text-align:center;">
+348 days
+</td>
+<td style="text-align:center;">
+2019-07-26
+</td>
+<td style="text-align:center;">
+18.19
+</td>
+<td style="text-align:center;">
+10.25
+</td>
+<td style="text-align:center;">
+9.00
+</td>
+</tr>
+<tr>
+<td style="text-align:center;">
+352 days
+</td>
+<td style="text-align:center;">
+2019-07-30
+</td>
+<td style="text-align:center;">
+18.12
+</td>
+<td style="text-align:center;">
+10.25
+</td>
+<td style="text-align:center;">
+8.75
+</td>
+</tr>
+<tr>
+<td style="text-align:center;">
+357 days
+</td>
+<td style="text-align:center;">
+2019-08-04
+</td>
+<td style="text-align:center;">
+18.19
+</td>
+<td style="text-align:center;">
+10.38
+</td>
+<td style="text-align:center;">
+8.69
+</td>
+</tr>
+<tr>
+<td style="text-align:center;">
+359 days
+</td>
+<td style="text-align:center;">
+2019-08-06
+</td>
+<td style="text-align:center;">
+18.19
+</td>
+<td style="text-align:center;">
+10.44
+</td>
+<td style="text-align:center;">
+8.81
+</td>
+</tr>
+<tr>
+<td style="text-align:center;">
+363 days
+</td>
+<td style="text-align:center;">
+2019-08-10
+</td>
+<td style="text-align:center;">
+17.94
+</td>
+<td style="text-align:center;">
+10.19
+</td>
+<td style="text-align:center;">
+8.75
+</td>
+</tr>
+<tr>
+<td style="text-align:center;">
+367 days
+</td>
+<td style="text-align:center;">
+2019-08-14
+</td>
+<td style="text-align:center;">
+7.94
+</td>
+<td style="text-align:center;">
+10.44
+</td>
+<td style="text-align:center;">
+8.88
+</td>
+</tr>
+<tr>
+<td style="text-align:center;">
+371 days
+</td>
+<td style="text-align:center;">
+2019-08-18
+</td>
+<td style="text-align:center;">
+18.00
+</td>
+<td style="text-align:center;">
+10.25
+</td>
+<td style="text-align:center;">
+8.69
+</td>
+</tr>
+<tr>
+<td style="text-align:center;">
+375 days
+</td>
+<td style="text-align:center;">
+2019-08-22
+</td>
+<td style="text-align:center;">
+17.88
+</td>
+<td style="text-align:center;">
+10.38
+</td>
+<td style="text-align:center;">
+8.56
+</td>
+</tr>
+<tr>
+<td style="text-align:center;">
+378 days
+</td>
+<td style="text-align:center;">
+2019-08-25
+</td>
+<td style="text-align:center;">
+17.94
+</td>
+<td style="text-align:center;">
+10.31
+</td>
+<td style="text-align:center;">
+8.38
+</td>
+</tr>
+<tr>
+<td style="text-align:center;">
+381 days
+</td>
+<td style="text-align:center;">
+2019-08-28
+</td>
+<td style="text-align:center;">
+17.81
+</td>
+<td style="text-align:center;">
+10.31
+</td>
+<td style="text-align:center;">
+8.12
+</td>
+</tr>
+<tr>
+<td style="text-align:center;">
+387 days
+</td>
+<td style="text-align:center;">
+2019-09-03
+</td>
+<td style="text-align:center;">
+17.88
+</td>
+<td style="text-align:center;">
+9.88
+</td>
+<td style="text-align:center;">
+NA
+</td>
+</tr>
+<tr>
+<td style="text-align:center;">
+390 days
+</td>
+<td style="text-align:center;">
+2019-09-06
+</td>
+<td style="text-align:center;">
+17.44
+</td>
+<td style="text-align:center;">
+10.12
+</td>
+<td style="text-align:center;">
+8.00
+</td>
+</tr>
+<tr>
+<td style="text-align:center;">
+406 days
+</td>
+<td style="text-align:center;">
+2019-09-22
+</td>
+<td style="text-align:center;">
+17.88
+</td>
+<td style="text-align:center;">
+9.94
+</td>
+<td style="text-align:center;">
+NA
+</td>
+</tr>
+<tr>
+<td style="text-align:center;">
+409 days
+</td>
+<td style="text-align:center;">
+2019-09-25
+</td>
+<td style="text-align:center;">
+17.62
+</td>
+<td style="text-align:center;">
+10.19
+</td>
+<td style="text-align:center;">
+NA
+</td>
+</tr>
+<tr>
+<td style="text-align:center;">
+416 days
+</td>
+<td style="text-align:center;">
+2019-10-02
+</td>
+<td style="text-align:center;">
+17.56
+</td>
+<td style="text-align:center;">
+10.25
+</td>
+<td style="text-align:center;">
+NA
+</td>
+</tr>
+<tr>
+<td style="text-align:center;">
+421 days
+</td>
+<td style="text-align:center;">
+2019-10-07
+</td>
+<td style="text-align:center;">
+17.50
+</td>
+<td style="text-align:center;">
+10.06
+</td>
+<td style="text-align:center;">
+NA
+</td>
+</tr>
+<tr>
+<td style="text-align:center;">
+425 days
+</td>
+<td style="text-align:center;">
+2019-10-11
+</td>
+<td style="text-align:center;">
+17.38
+</td>
+<td style="text-align:center;">
+10.25
+</td>
+<td style="text-align:center;">
+NA
+</td>
+</tr>
+<tr>
+<td style="text-align:center;">
+429 days
+</td>
+<td style="text-align:center;">
+2019-10-15
+</td>
+<td style="text-align:center;">
+17.56
+</td>
+<td style="text-align:center;">
+10.31
+</td>
+<td style="text-align:center;">
+NA
+</td>
+</tr>
+<tr>
+<td style="text-align:center;">
+433 days
+</td>
+<td style="text-align:center;">
+2019-10-19
+</td>
+<td style="text-align:center;">
+17.69
+</td>
+<td style="text-align:center;">
+10.19
+</td>
+<td style="text-align:center;">
+NA
+</td>
+</tr>
+<tr>
+<td style="text-align:center;">
+436 days
+</td>
+<td style="text-align:center;">
+2019-10-22
+</td>
+<td style="text-align:center;">
+17.69
+</td>
+<td style="text-align:center;">
+10.31
+</td>
+<td style="text-align:center;">
+NA
+</td>
+</tr>
+<tr>
+<td style="text-align:center;">
+449 days
+</td>
+<td style="text-align:center;">
+2019-11-04
+</td>
+<td style="text-align:center;">
+17.12
+</td>
+<td style="text-align:center;">
+9.12
+</td>
+<td style="text-align:center;">
+NA
+</td>
+</tr>
+<tr>
+<td style="text-align:center;">
+451 days
+</td>
+<td style="text-align:center;">
+2019-11-06
+</td>
+<td style="text-align:center;">
+17.38
+</td>
+<td style="text-align:center;">
+9.62
+</td>
+<td style="text-align:center;">
+NA
+</td>
+</tr>
+<tr>
+<td style="text-align:center;">
+455 days
+</td>
+<td style="text-align:center;">
+2019-11-10
+</td>
+<td style="text-align:center;">
+17.56
+</td>
+<td style="text-align:center;">
+10.00
+</td>
+<td style="text-align:center;">
+NA
+</td>
+</tr>
+<tr>
+<td style="text-align:center;">
+462 days
+</td>
+<td style="text-align:center;">
+2019-11-17
+</td>
+<td style="text-align:center;">
+17.31
+</td>
+<td style="text-align:center;">
+9.75
+</td>
+<td style="text-align:center;">
+NA
+</td>
+</tr>
+<tr>
+<td style="text-align:center;">
+469 days
+</td>
+<td style="text-align:center;">
+2019-11-24
+</td>
+<td style="text-align:center;">
+17.62
+</td>
+<td style="text-align:center;">
+9.88
+</td>
+<td style="text-align:center;">
+NA
+</td>
+</tr>
+<tr>
+<td style="text-align:center;">
+475 days
+</td>
+<td style="text-align:center;">
+2019-11-30
+</td>
+<td style="text-align:center;">
+17.38
+</td>
+<td style="text-align:center;">
+9.75
+</td>
+<td style="text-align:center;">
+NA
+</td>
+</tr>
+<tr>
+<td style="text-align:center;">
+482 days
+</td>
+<td style="text-align:center;">
+2019-12-07
+</td>
+<td style="text-align:center;">
+17.50
+</td>
+<td style="text-align:center;">
+9.88
+</td>
+<td style="text-align:center;">
+NA
+</td>
+</tr>
+<tr>
+<td style="text-align:center;">
+487 days
+</td>
+<td style="text-align:center;">
+2019-12-12
+</td>
+<td style="text-align:center;">
+17.75
+</td>
+<td style="text-align:center;">
+10.00
+</td>
+<td style="text-align:center;">
+NA
+</td>
+</tr>
+<tr>
+<td style="text-align:center;">
+490 days
+</td>
+<td style="text-align:center;">
+2019-12-15
+</td>
+<td style="text-align:center;">
+17.88
+</td>
+<td style="text-align:center;">
+10.00
+</td>
+<td style="text-align:center;">
+NA
+</td>
+</tr>
+<tr>
+<td style="text-align:center;">
+494 days
+</td>
+<td style="text-align:center;">
+2019-12-19
+</td>
+<td style="text-align:center;">
+17.81
+</td>
+<td style="text-align:center;">
+9.88
+</td>
+<td style="text-align:center;">
+NA
+</td>
+</tr>
+<tr>
+<td style="text-align:center;">
+505 days
+</td>
+<td style="text-align:center;">
+2019-12-30
+</td>
+<td style="text-align:center;">
+17.81
+</td>
+<td style="text-align:center;">
+9.88
+</td>
+<td style="text-align:center;">
+NA
+</td>
+</tr>
+<tr>
+<td style="text-align:center;">
+517 days
+</td>
+<td style="text-align:center;">
+2020-01-11
+</td>
+<td style="text-align:center;">
+17.56
+</td>
+<td style="text-align:center;">
+9.62
+</td>
+<td style="text-align:center;">
+NA
+</td>
+</tr>
+<tr>
+<td style="text-align:center;">
+519 days
+</td>
+<td style="text-align:center;">
+2020-01-13
+</td>
+<td style="text-align:center;">
+17.62
+</td>
+<td style="text-align:center;">
+9.56
+</td>
+<td style="text-align:center;">
+NA
+</td>
+</tr>
+<tr>
+<td style="text-align:center;">
+525 days
+</td>
+<td style="text-align:center;">
+2020-01-19
+</td>
+<td style="text-align:center;">
+17.94
+</td>
+<td style="text-align:center;">
+9.69
+</td>
+<td style="text-align:center;">
+NA
+</td>
+</tr>
+<tr>
+<td style="text-align:center;">
+528 days
+</td>
+<td style="text-align:center;">
+2020-01-22
+</td>
+<td style="text-align:center;">
+17.88
+</td>
+<td style="text-align:center;">
+9.81
+</td>
+<td style="text-align:center;">
+NA
+</td>
+</tr>
+<tr>
+<td style="text-align:center;">
+535 days
+</td>
+<td style="text-align:center;">
+2020-01-29
+</td>
+<td style="text-align:center;">
+18.00
+</td>
+<td style="text-align:center;">
+9.94
+</td>
+<td style="text-align:center;">
+NA
+</td>
+</tr>
+<tr>
+<td style="text-align:center;">
+540 days
+</td>
+<td style="text-align:center;">
+2020-02-03
+</td>
+<td style="text-align:center;">
+17.31
+</td>
+<td style="text-align:center;">
+9.31
+</td>
+<td style="text-align:center;">
+NA
+</td>
+</tr>
+<tr>
+<td style="text-align:center;">
+543 days
+</td>
+<td style="text-align:center;">
+2020-02-06
+</td>
+<td style="text-align:center;">
+17.38
+</td>
+<td style="text-align:center;">
+9.62
+</td>
+<td style="text-align:center;">
+NA
+</td>
+</tr>
+<tr>
+<td style="text-align:center;">
+550 days
+</td>
+<td style="text-align:center;">
+2020-02-13
+</td>
+<td style="text-align:center;">
+17.44
+</td>
+<td style="text-align:center;">
+9.94
+</td>
+<td style="text-align:center;">
+NA
+</td>
+</tr>
+<tr>
+<td style="text-align:center;">
+555 days
+</td>
+<td style="text-align:center;">
+2020-02-18
+</td>
+<td style="text-align:center;">
+17.25
+</td>
+<td style="text-align:center;">
+9.25
+</td>
+<td style="text-align:center;">
+NA
+</td>
+</tr>
+<tr>
+<td style="text-align:center;">
+562 days
+</td>
+<td style="text-align:center;">
+2020-02-25
+</td>
+<td style="text-align:center;">
+17.31
+</td>
+<td style="text-align:center;">
+9.75
+</td>
+<td style="text-align:center;">
+NA
+</td>
+</tr>
+<tr>
+<td style="text-align:center;">
+570 days
+</td>
+<td style="text-align:center;">
+2020-03-04
+</td>
+<td style="text-align:center;">
+17.50
+</td>
+<td style="text-align:center;">
+10.06
+</td>
+<td style="text-align:center;">
+NA
+</td>
+</tr>
+<tr>
+<td style="text-align:center;">
+576 days
+</td>
+<td style="text-align:center;">
+2020-03-10
+</td>
+<td style="text-align:center;">
+17.50
+</td>
+<td style="text-align:center;">
+10.00
+</td>
+<td style="text-align:center;">
+NA
+</td>
+</tr>
+<tr>
+<td style="text-align:center;">
+579 days
+</td>
+<td style="text-align:center;">
+2020-03-13
+</td>
+<td style="text-align:center;">
+17.50
+</td>
+<td style="text-align:center;">
+9.94
+</td>
+<td style="text-align:center;">
+NA
+</td>
+</tr>
+<tr>
+<td style="text-align:center;">
+586 days
+</td>
+<td style="text-align:center;">
+2020-03-20
+</td>
+<td style="text-align:center;">
+17.62
+</td>
+<td style="text-align:center;">
+10.19
+</td>
+<td style="text-align:center;">
+NA
+</td>
+</tr>
+<tr>
+<td style="text-align:center;">
+590 days
+</td>
+<td style="text-align:center;">
+2020-03-24
+</td>
+<td style="text-align:center;">
+17.56
+</td>
+<td style="text-align:center;">
+10.06
+</td>
+<td style="text-align:center;">
+NA
+</td>
+</tr>
+<tr>
+<td style="text-align:center;">
+596 days
+</td>
+<td style="text-align:center;">
+2020-03-30
+</td>
+<td style="text-align:center;">
+17.88
+</td>
+<td style="text-align:center;">
+10.06
+</td>
+<td style="text-align:center;">
+NA
+</td>
+</tr>
+<tr>
+<td style="text-align:center;">
+600 days
+</td>
+<td style="text-align:center;">
+2020-04-03
+</td>
+<td style="text-align:center;">
+17.88
+</td>
+<td style="text-align:center;">
+10.06
+</td>
+<td style="text-align:center;">
+NA
+</td>
+</tr>
+<tr>
+<td style="text-align:center;">
+603 days
+</td>
+<td style="text-align:center;">
+2020-04-06
+</td>
+<td style="text-align:center;">
+17.81
+</td>
+<td style="text-align:center;">
+10.31
+</td>
+<td style="text-align:center;">
+NA
+</td>
+</tr>
+<tr>
+<td style="text-align:center;">
+607 days
+</td>
+<td style="text-align:center;">
+2020-04-10
+</td>
+<td style="text-align:center;">
+17.81
+</td>
+<td style="text-align:center;">
+10.19
+</td>
+<td style="text-align:center;">
+NA
+</td>
+</tr>
+<tr>
+<td style="text-align:center;">
+614 days
+</td>
+<td style="text-align:center;">
+2020-04-17
+</td>
+<td style="text-align:center;">
+17.94
+</td>
+<td style="text-align:center;">
+10.50
+</td>
+<td style="text-align:center;">
+NA
+</td>
+</tr>
+<tr>
+<td style="text-align:center;">
+617 days
+</td>
+<td style="text-align:center;">
+2020-04-20
+</td>
+<td style="text-align:center;">
+17.94
+</td>
+<td style="text-align:center;">
+10.56
+</td>
+<td style="text-align:center;">
+NA
+</td>
+</tr>
+<tr>
+<td style="text-align:center;">
+623 days
+</td>
+<td style="text-align:center;">
+2020-04-26
+</td>
+<td style="text-align:center;">
+18.12
+</td>
+<td style="text-align:center;">
+10.38
+</td>
+<td style="text-align:center;">
+NA
+</td>
+</tr>
+<tr>
+<td style="text-align:center;">
+629 days
+</td>
+<td style="text-align:center;">
+2020-05-02
+</td>
+<td style="text-align:center;">
+18.31
+</td>
+<td style="text-align:center;">
+10.38
+</td>
+<td style="text-align:center;">
+NA
+</td>
+</tr>
+<tr>
+<td style="text-align:center;">
+633 days
+</td>
+<td style="text-align:center;">
+2020-05-06
+</td>
+<td style="text-align:center;">
+18.19
+</td>
+<td style="text-align:center;">
+10.44
+</td>
+<td style="text-align:center;">
+NA
+</td>
+</tr>
+<tr>
+<td style="text-align:center;">
+639 days
+</td>
+<td style="text-align:center;">
+2020-05-12
+</td>
+<td style="text-align:center;">
+18.38
+</td>
+<td style="text-align:center;">
+10.38
+</td>
+<td style="text-align:center;">
+NA
+</td>
+</tr>
+<tr>
+<td style="text-align:center;">
+643 days
+</td>
+<td style="text-align:center;">
+2020-05-16
+</td>
+<td style="text-align:center;">
+18.38
+</td>
+<td style="text-align:center;">
+10.50
+</td>
+<td style="text-align:center;">
+NA
+</td>
+</tr>
+<tr>
+<td style="text-align:center;">
+647 days
+</td>
+<td style="text-align:center;">
+2020-05-20
+</td>
+<td style="text-align:center;">
+18.44
+</td>
+<td style="text-align:center;">
+10.56
+</td>
+<td style="text-align:center;">
+NA
+</td>
+</tr>
+<tr>
+<td style="text-align:center;">
+649 days
+</td>
+<td style="text-align:center;">
+2020-05-22
+</td>
+<td style="text-align:center;">
+18.56
+</td>
+<td style="text-align:center;">
+10.81
+</td>
+<td style="text-align:center;">
+NA
+</td>
+</tr>
+<tr>
+<td style="text-align:center;">
+650 days
+</td>
+<td style="text-align:center;">
+2020-05-23
+</td>
+<td style="text-align:center;">
+18.31
+</td>
+<td style="text-align:center;">
+10.62
+</td>
+<td style="text-align:center;">
+NA
+</td>
+</tr>
+<tr>
+<td style="text-align:center;">
+657 days
+</td>
+<td style="text-align:center;">
+2020-05-30
+</td>
+<td style="text-align:center;">
+18.31
+</td>
+<td style="text-align:center;">
+10.50
+</td>
+<td style="text-align:center;">
+NA
+</td>
+</tr>
+<tr>
+<td style="text-align:center;">
+662 days
+</td>
+<td style="text-align:center;">
+2020-06-04
+</td>
+<td style="text-align:center;">
+18.31
+</td>
+<td style="text-align:center;">
+10.25
+</td>
+<td style="text-align:center;">
+NA
+</td>
+</tr>
+<tr>
+<td style="text-align:center;">
+667 days
+</td>
+<td style="text-align:center;">
+2020-06-09
+</td>
+<td style="text-align:center;">
+18.44
+</td>
+<td style="text-align:center;">
+10.50
+</td>
+<td style="text-align:center;">
+NA
+</td>
+</tr>
+<tr>
+<td style="text-align:center;">
+668 days
+</td>
+<td style="text-align:center;">
+2020-06-10
+</td>
+<td style="text-align:center;">
+18.19
+</td>
+<td style="text-align:center;">
+10.38
+</td>
+<td style="text-align:center;">
+NA
+</td>
+</tr>
+<tr>
+<td style="text-align:center;">
+671 days
+</td>
+<td style="text-align:center;">
+2020-06-13
+</td>
+<td style="text-align:center;">
+18.12
+</td>
+<td style="text-align:center;">
+10.56
+</td>
+<td style="text-align:center;">
+NA
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div id="visualization" class="section level2">
+<h2>Visualization</h2>
+<pre class="r"><code>raisin_lbs = 
+  ggplot(dogweights, aes(x = day_n, y = raisin_lbs)) +
+  geom_line(size= 1) +
+  geom_point(size = 1.5) +
+  labs(title = &quot;Spaghetti&quot;,
+       subtitle = &quot;&quot;,
+       x = &quot;day&quot;,
+       y = &quot;raisin_lbs&quot;,
+       caption = &quot;Data from&quot;) + 
+  theme(plot.title = element_text(hjust = 0.5, size = 20),
+        plot.subtitle = element_text(hjust = 0.5, size = 10),
+        legend.key.size=unit(.2,&quot;inches&quot;),
+        legend.text = element_text(size = 7))
+raisin_lbs # 123</code></pre>
+<p><img src="Dog-weights_files/figure-html/unnamed-chunk-2-1.png" width="960" style="display: block; margin: auto;" /></p>
+<pre class="r"><code>simone_lbs = 
+  ggplot(dogweights, aes(x = day_n, y = simone_lbs)) +
+  geom_line(size= 1) +
+  geom_point(size = 1.5) +
+  labs(title = &quot;Spaghetti&quot;,
+       subtitle = &quot;&quot;,
+       x = &quot;day&quot;,
+       y = &quot;raisin_lbs&quot;,
+       caption = &quot;Data from&quot;) + 
+  theme(plot.title = element_text(hjust = 0.5, size = 20),
+        plot.subtitle = element_text(hjust = 0.5, size = 10),
+        legend.key.size=unit(.2,&quot;inches&quot;),
+        legend.text = element_text(size = 7))
+simone_lbs</code></pre>
+<p><img src="Dog-weights_files/figure-html/unnamed-chunk-2-2.png" width="960" style="display: block; margin: auto;" /></p>
+<pre class="r"><code>gagne_lbs = 
+  ggplot(dogweights, aes(x = day_n, y = gagne_lbs)) +
+  geom_line(size= 1) +
+  geom_point(size = 1.5) +
+  labs(title = &quot;Spaghetti&quot;,
+       subtitle = &quot;&quot;,
+       x = &quot;day&quot;,
+       y = &quot;raisin_lbs&quot;,
+       caption = &quot;Data from&quot;) + 
+  theme(plot.title = element_text(hjust = 0.5, size = 20),
+        plot.subtitle = element_text(hjust = 0.5, size = 10),
+        legend.key.size=unit(.2,&quot;inches&quot;),
+        legend.text = element_text(size = 7))
+gagne_lbs</code></pre>
+<p><img src="Dog-weights_files/figure-html/unnamed-chunk-2-3.png" width="960" style="display: block; margin: auto;" /></p>
+</div>
+</div>
+
+
+
+</div>
+</div>
+
+</div>
+
+<script>
+
+// add bootstrap table styles to pandoc tables
+function bootstrapStylePandocTables() {
+  $('tr.header').parent('thead').parent('table').addClass('table table-condensed');
+}
+$(document).ready(function () {
+  bootstrapStylePandocTables();
+});
+
+
+</script>
+
+<!-- tabsets -->
+
+<script>
+$(document).ready(function () {
+  window.buildTabsets("TOC");
+});
+
+$(document).ready(function () {
+  $('.tabset-dropdown > .nav-tabs > li').click(function () {
+    $(this).parent().toggleClass('nav-tabs-open')
+  });
+});
+</script>
+
+<!-- code folding -->
+<script>
+$(document).ready(function () {
+  window.initializeCodeFolding("hide" === "show");
+});
+</script>
+
+<script>
+$(document).ready(function ()  {
+
+    // move toc-ignore selectors from section div to header
+    $('div.section.toc-ignore')
+        .removeClass('toc-ignore')
+        .children('h1,h2,h3,h4,h5').addClass('toc-ignore');
+
+    // establish options
+    var options = {
+      selectors: "h1,h2,h3",
+      theme: "bootstrap3",
+      context: '.toc-content',
+      hashGenerator: function (text) {
+        return text.replace(/[.\\/?&!#<>]/g, '').replace(/\s/g, '_').toLowerCase();
+      },
+      ignoreSelector: ".toc-ignore",
+      scrollTo: 0
+    };
+    options.showAndHide = true;
+    options.smoothScroll = true;
+
+    // tocify
+    var toc = $("#TOC").tocify(options).data("toc-tocify");
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+</body>
+</html>

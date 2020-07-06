@@ -1,0 +1,109 @@
+---
+title: "Dog Weights"
+output: 
+  html_document:
+    code_folding: hide
+    toc: true
+    toc_float: true
+---
+
+```{r setup, include = FALSE, message = FALSE, warning = FALSE}
+# global default settings for chunks
+knitr::opts_chunk$set(echo = TRUE, warning = FALSE, message = FALSE,
+                      fig.width = 10, 
+                      fig.align = "center"
+                      )
+# loaded packages; placed here to be able to load global settings
+Packages <- c("tidyverse", "dplyr", "rvest", "httr", "XML", "readxl", "fragilityindex", "kableExtra")
+library(patchwork)
+library(ggridges)
+invisible(lapply(Packages, library, character.only = TRUE))
+# global settings for color palettes
+options(
+  ggplot2.continuous.colour = "viridis",
+  ggplot2.continuous.fill = "viridis"
+)
+scale_colour_discrete = scale_colour_viridis_d
+scale_fill_discrete = scale_fill_viridis_d
+# theme global setting for ggplot
+theme_set(theme_minimal() + 
+            theme(legend.position = "bottom") +
+            theme(plot.title = element_text(hjust = 0.5, size = 12),
+                  plot.subtitle = element_text(hjust = 0.5, size = 8))
+          )
+```
+
+# Motivation
+
+
+## Import and clean data
+```{r}
+dogweights = 
+  read_excel("./data/dog _weights.xlsx", range = "B3:E185") %>%
+  janitor::clean_names() %>% 
+  mutate(day_n = as.Date(date)-as.Date('2018-08-12')) %>%
+  # separate(date, into = c("year", "month", "day"), sep = "-")
+  separate(raisin, into = c("raisin_lbs", "raisin_os"), sep = " ") %>% 
+  mutate(raisin_lbs = round(as.numeric(raisin_lbs) + as.numeric(raisin_os)/16, digits = 2)) %>%
+  
+  separate(simone, into = c("simone_lbs", "simone_os"), sep = " ") %>%
+  mutate(simone_lbs = round(as.numeric(simone_lbs) + as.numeric(simone_os)/16, digits = 2)) %>%
+  
+  separate(gagne, into = c("gagne_lbs", "gagne_os"), sep = " ") %>%
+  mutate(gagne_lbs = round(as.numeric(gagne_lbs) + as.numeric(gagne_os)/16, digits = 2)) %>% 
+  select(day_n, date, raisin_lbs, simone_lbs, gagne_lbs)
+  
+dogweights[1:5] %>%
+  knitr::kable(align = 'c')
+```
+
+
+## Visualization
+```{r}
+raisin_lbs = 
+  ggplot(dogweights, aes(x = day_n, y = raisin_lbs)) +
+  geom_line(size= 1) +
+  geom_point(size = 1.5) +
+  labs(title = "Spaghetti",
+       subtitle = "",
+       x = "day",
+       y = "raisin_lbs",
+       caption = "Data from") + 
+  theme(plot.title = element_text(hjust = 0.5, size = 20),
+        plot.subtitle = element_text(hjust = 0.5, size = 10),
+        legend.key.size=unit(.2,"inches"),
+        legend.text = element_text(size = 7))
+raisin_lbs # 123
+
+
+simone_lbs = 
+  ggplot(dogweights, aes(x = day_n, y = simone_lbs)) +
+  geom_line(size= 1) +
+  geom_point(size = 1.5) +
+  labs(title = "Spaghetti",
+       subtitle = "",
+       x = "day",
+       y = "raisin_lbs",
+       caption = "Data from") + 
+  theme(plot.title = element_text(hjust = 0.5, size = 20),
+        plot.subtitle = element_text(hjust = 0.5, size = 10),
+        legend.key.size=unit(.2,"inches"),
+        legend.text = element_text(size = 7))
+simone_lbs
+
+
+gagne_lbs = 
+  ggplot(dogweights, aes(x = day_n, y = gagne_lbs)) +
+  geom_line(size= 1) +
+  geom_point(size = 1.5) +
+  labs(title = "Spaghetti",
+       subtitle = "",
+       x = "day",
+       y = "raisin_lbs",
+       caption = "Data from") + 
+  theme(plot.title = element_text(hjust = 0.5, size = 20),
+        plot.subtitle = element_text(hjust = 0.5, size = 10),
+        legend.key.size=unit(.2,"inches"),
+        legend.text = element_text(size = 7))
+gagne_lbs
+```
