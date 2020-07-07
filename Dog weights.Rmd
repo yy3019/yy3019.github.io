@@ -77,7 +77,7 @@ weights_time =
     names_to = "Name",
     values_to = "Weights")
 
-weightplot = 
+weightplot2 = 
   ggplot(weights_time, aes(x = Name, y = Weights, fill = Name)) +
   labs(title = "Weights of dogs",
        x = "Dog",
@@ -85,7 +85,7 @@ weightplot =
   geom_violin(alpha = 0.5, size = 0.5, color = "blue") + 
   stat_summary(fun.y = median, geom = "point", color = "blue", size = 3)
 
-ggplotly(weights_time2)
+ggplotly(weightplot2)
 ```
 Get rid of the outlier in Rasin.
 
