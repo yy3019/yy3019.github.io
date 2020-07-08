@@ -18,7 +18,7 @@ Packages <- c("tidyverse", "dplyr", "rvest", "httr", "XML", "readxl", "fragility
 library(patchwork)
 library(ggridges)
 library(plotly)
-library(mice)
+library(anytime)
 invisible(lapply(Packages, library, character.only = TRUE))
 # global settings for color palettes
 options(
@@ -31,22 +31,18 @@ scale_fill_discrete = scale_fill_viridis_d
 theme_set(theme_minimal() + 
             theme(legend.position = "bottom") +
             theme(plot.title = element_text(hjust = 0.5, size = 12),
-                  plot.subtitle = element_text(hjust = 0.5, size = 8))
-          )
+                  plot.subtitle = element_text(hjust = 0.5, size = 8)))
 ```
 
 
 ## Import and clean data
 
-#### Change the format of Date in Excel
-<img src="image/data.png" width = "300">   <img src="image/ai.jpg" width = "30">  <img src="image/data.png" width = "300">
 
-
-#### Tidy data in R
 ```{r}
-dogweights = 
-  read_excel("./data/dog _weights.xlsx", range = "B3:E185") %>%
+dogweights = read_excel("./data/dog _weights.xlsx", range = "B3:E185")[-77,] %>% 
   janitor::clean_names() %>% 
+  mutate(
+    date = as.Date(as.numeric(date), origin = "1899-12-30")) %>%
   mutate(day_n = as.Date(date)-as.Date('2018-08-12')) %>%
   separate(raisin, into = c("raisin_lbs", "raisin_os"), sep = " ") %>% 
   mutate(raisin_lbs = round(as.numeric(raisin_lbs) + as.numeric(raisin_os)/16, digits = 2)) %>%
@@ -55,29 +51,29 @@ dogweights =
   separate(gagne, into = c("gagne_lbs", "gagne_os"), sep = " ") %>%
   mutate(gagne_lbs = round(as.numeric(gagne_lbs) + as.numeric(gagne_os)/16, digits = 2)) %>% 
   select(day_n, date, raisin_lbs, simone_lbs, gagne_lbs)
-```
-lbs os - Lbs
 
-#### Show the first five rows
-```{r}
-dogweights[1:5,] %>% 
+head(dogweights) %>% 
   knitr::kable(align = 'c')
 ```
 
+
+
 ## Visualization
 
-#### Weights of dogs
+### Weights of dogs
 ```{r}
 weights_time = 
-  dogweights %>%  # wired data
-  mutate(
-      Raisin = raisin_lbs, Simone = simone_lbs, Gagne = gagne_lbs) %>%
+  dogweights %>%
+  rename(
+      Raisin = raisin_lbs, 
+      Simone = simone_lbs, 
+      Gagne = gagne_lbs) %>%
   pivot_longer(
     Raisin:Gagne,
     names_to = "Name",
     values_to = "Weights")
 
-weightplot2 = 
+plot_violin = 
   ggplot(weights_time, aes(x = Name, y = Weights, fill = Name)) +
   labs(title = "Weights of dogs",
        x = "Dog",
@@ -85,7 +81,7 @@ weightplot2 =
   geom_violin(alpha = 0.5, size = 0.5, color = "blue") + 
   stat_summary(fun.y = median, geom = "point", color = "blue", size = 3)
 
-ggplotly(weightplot2)
+ggplotly(plot_violin)
 ```
 Get rid of the outlier in Rasin.
 
@@ -95,21 +91,16 @@ Get rid of the outlier in Rasin.
 #### Weights over time
 
 ```{r}
-weightplot2 = 
-  ggplot(weights_time[-367,], aes(x = date, y = Weights, color = Name)) +
+plot_time = 
+  ggplot(weights_time[-364,], aes(x = date, y = Weights, color = Name)) +
   labs(title = "Weights over time",
-       subtitle = "",
        x = "Time",
-       y = "Lbs",
-       caption = "Data from friend of jeff") + 
+       y = "Lbs") + 
   geom_point(alpha = 0.5, size = 0.7) + 
   geom_smooth(size = 0.5, alpha = .8, se = F) + 
-  theme(axis.text.y = element_text(color = "black", 
-                                   size = 10,  hjust = 1), 
-        axis.text.x = element_text(angle = 45, 
-                                   hjust = 1, size = 10))
+  geom_vline(xintercept = c(as.Date(43389,  origin = "1899-12-30"), as.Date(43974,  origin = "1899-12-30")), linetype="dashed", color = "red", size=2)
 
-ggplotly(weightplot2)
+ggplotly(plot_time)
 ```
 
 
