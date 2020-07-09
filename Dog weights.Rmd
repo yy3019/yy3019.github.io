@@ -35,9 +35,9 @@ theme_set(theme_minimal() +
 ```
 <HR style="FILTER: alpha(opacity=100,finishopacity=0,style=3)" width="80%" color=#987cb9 SIZE=3>
 <HR style="FILTER: alpha(opacity=100,finishopacity=0,style=1)" width="80%" color=#987cb9 SIZE=3>
-### Looking at data
+### Data at the first glance
 
-The first thing to do after importing the data is to use `view()` and `skimr::skim()` to look at it. Then we can find an unexpected result (the 77th row) during data import, we'll remove it. And we can know the formats of variables are all characters as well. 
+In order to get an idea of how this dataset is like, we utilize `view ()` and `skimr::skim()` function to do so. Before moving on to the next step, we find an unexpected result (in the 77th row, see below) within the dataset, so we decided to remove it.
 ```{r}
 dogweights = read_excel("./data/dog _weights.xlsx", range = "B3:E185") 
 
@@ -76,23 +76,25 @@ dogweights = read_excel("./data/dog _weights.xlsx", range = "B3:E185")
 #3 Simone                8         0.956     4     5     0       33          0
 #4 Gagne                62         0.659     4     5     0       35          0
 ```
+
 ```{r, echo=FALSE}
-dogweights[77,] %>%  
-  knitr::kable(align = 'c', digits = 3)%>%
+dogweights[77,]  %>%  
+  knitr::kable(align = 'c', digits = 3) %>%
   kable_styling(full_width = F) %>%
 column_spec(1, bold = T, color = "black") %>%
-  column_spec(2, width = "10em")
+  column_spec(1, width = "10em")
 ```
 
 <HR style="FILTER: alpha(opacity=100,finishopacity=0,style=1)" width="80%" color=#987cb9 SIZE=3>
-### Import and clean data
-To produce the desired tidy dataset, we first need to read each table by `read_excel` and do some cleaning:
 
-* 1. Converting strings to date by `as.Date`. *(Don't forget to change the data format first)* We can also get the number of days easily with this function.
+### Data cleaning
+At initial stage, all the variables are stored as characters, which might not be what we desired. In order to produce *tidy* dataset, we need to:
 
-* 2. We will show each Dogs' weights data only in Lbs so we use `separate` to divide Lbs and Oz first and then we can calculate the weights of dogs in Lbs by $Lbs = 16Oz$.
+*	Convert `Date` variable to the right data class by `as.Date`. We can also get the number of days easily through this function.
 
-Here is the head and tail of the clean data: (Left: Head, Right: Tail)
+* 2.	We want to show each Dogs’ weight data in pounds. Therefore, `separate` function is applied to divide Lbs and Oz. After that, we’re allowed to convert the weights by $1Lbs = 16Oz$.
+
+Here is the head and tail of the clean data:  (Left:  Head,  Right:  Tail)
 ```{r}
 dogweights = read_excel("./data/dog _weights.xlsx", range = "B3:E185")[-77,] %>% 
   janitor::clean_names() %>% 
@@ -116,12 +118,15 @@ column_spec(1, bold = T, color = "black") %>%
   column_spec(2, width = "10em")
 ```
 
-From the tidy dataset, we can see the owner recorded three dogs' weights from 2018-08-12 (which is my birthday!omg) to 2020-06-13, 671 days in total. And we can do the visualization with this dataset now.
+From the tidy dataset, we can see the owner recorded three dogs' weights from 2018-08-12 (which is my birthday!omg) to 2020-06-13, 671 days in total. 
+
+Following up, time for some data visualizations.
 
 <HR style="FILTER: alpha(opacity=100,finishopacity=0,style=1)" width="80%" color=#987cb9 SIZE=3>
+
 ### Visualization
 
-With our understanding of tidy data, we can recognize a problem: the Weights (Lbs) is spread across three columns, which correspond to three observation dogs Raisin, Simone, and Gagne. We can fix this problem using `pivot_longer`:
+Before we get started, weight data is spread across three columns, which correspond to three different puppies. To facilitate further process, we apply `pivot_longer` and change the data to long format.
 
 ```{r}
 weights_time = 
@@ -137,7 +142,8 @@ weights_time =
 ```
 
 #### *Weights of dogs*
-We can get more information by placing cursor over the graph. (Mean, Median, Max/Min) There exist an outlier (7.94Lbs) in Raisin's weight that is not quite realistic so we think of it as a typo and remove it in the next analysis. What we can infer from the information in the plot is that Gagne and Simone may be small dogs of the same breed like Pomeranians, and Rasian is a bigger dog of another breed.
+We can get detailed information by placing cursor over the graph. (Mean, Median, Max/Min) There’s an outlier (7.94Lbs) in Raisin’s weight that doesn’t seem quite realistic, so we think of it as a typo and will remove it in following analysis. 
+We can infer from the plot that Gagne and Simone might belong to small-sized family like Pomeranians, while Rasian should belong to another larger-sized breed.
 ```{r}
 plot_weights = 
   ggplot(weights_time, aes(x = Name, y = Weights, fill = Name)) +
@@ -153,7 +159,7 @@ ggplotly(plot_weights)
 <HR style="FILTER: alpha(opacity=100,finishopacity=0,style=3)" width="80%" color=#987cb9 SIZE=1>
 
 #### *Weights over time*
-*The light green shaded areas* mean that the dogs are not under the care of their owners during this time. If you use the `box select` in the menu of `Plotly` to zoom in these areas, you can find that the **dogs' weights continue to drop** until January 2019 because their owner was frequently boarding them with Weber or Kennel. After that, the dogs' weight rose slowly and steadily while their owners stayed with them. *The Light blue dashed lines* mean that dogs take haircuts on that day. In the enlarged picture, we can find that Raisin loses more weight after haircut than Gagne and Simone. So we can infer that Raisin is a kind of long-haired dog while the other two are not.
+*The light green shaded areas* indicate the time when these dogs are not under their owner’s care. By zooming in these areas, we can find that the **dogs’ weights continue to drop** until January 2019 because their owner were constantly boarding them with Weber or Kennel. After that, the dogs’ weight rose slowly and steadily while their owners stayed with them.  *The Light blue dashed lines* indicate dates that the dogs go on a haircut. In the enlarged plot, we can find that Raisin lost more weight after haircut than Gagne and Simone did. Therefore, we assume that Raisin is a member in long-haired breed, while the others are not.
 ```{r}
 plot_time = 
   ggplot(weights_time[-364,], aes(x = date, y = Weights, color = Name)) +
@@ -185,4 +191,10 @@ ggplotly(plot_time)
 
 RIP for Gagne first. We can see that in the last months of its life it's losing weight little by little:(. I can't imagine how she must feel.
 
-We should spend as much time as possible with our lovely dogs and take care of them ourselves so that they can accompany us through a longer and happier life. Also, we can see that the weight of the dogs tended to move in the same direction (up and down), and it was clear that they were fed the same way. I suspect that the relatively haphazard way owners feed them (a little more one day and a little less the next) does not follow scientific method (*Resting energy requirement (18 lb dog) = 339 cal*), which causes the dogs' weight to fluctuate in a short period. Of course, many factors are affecting the weight of the hand, these are just my guesses based on the data. By the way, I envy her so much for having so many dogs, because I love dogs very much.
+We should spend as much time as possible with our lovely dogs and take care of them ourselves so that they can accompany us through a longer and happier life. Also, we can see that the weight of the dogs tended to move in the same direction (up and down), and it was clear that they were fed the same way. I suspect that the relatively haphazard way owners feed them (a little more one day and a little less the next) does not follow scientific method (*Resting energy requirement (18 lb dog) = 339 cal*), which causes the dogs' weight to fluctuate in a short period. Of course, many factors are affecting the weight of the hand, these are just my guesses based on the data. By the way, I envy her so much for having so many dogs, because I love dogs very much. My favourite dog is shiba inu!
+
+<HR style="FILTER: alpha(opacity=100,finishopacity=0,style=1)" width="80%" color=#987cb9 SIZE=3>
+
+<img src="image/god.gif" style="width:30%"> 
+
+
