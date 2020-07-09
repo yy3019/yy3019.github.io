@@ -27,6 +27,16 @@ Expected May 2021
 
 ### Research and Internships
 
+#### **Columbia University Mailman School of Public Health**
+##### *Research Assistant (RA)*
+
+03/2020 - now 
+
+- Missing Data and imputation
+
+- Code Packages and update Shiny app for lab
+
+- Shiny app for covid-19 in NYC
 
 
 #### **Pfizer**

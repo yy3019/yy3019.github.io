@@ -33,34 +33,96 @@ theme_set(theme_minimal() +
             theme(plot.title = element_text(hjust = 0.5, size = 12),
                   plot.subtitle = element_text(hjust = 0.5, size = 8)))
 ```
+<HR style="FILTER: alpha(opacity=100,finishopacity=0,style=3)" width="80%" color=#987cb9 SIZE=3>
+<HR style="FILTER: alpha(opacity=100,finishopacity=0,style=1)" width="80%" color=#987cb9 SIZE=3>
+### Looking at data
 
+The first thing to do after importing the data is to use `view()` and `skimr::skim()` to look at it. Then we can find an unexpected result (the 77th row) during data import, we'll remove it. And we can know the formats of variables are all characters as well. 
+```{r}
+dogweights = read_excel("./data/dog _weights.xlsx", range = "B3:E185") 
 
-## Import and clean data
+# A tibble: 182 x 4
+#  DATE  Raisin Simone Gagne
+#  <chr> <chr>  <chr>  <chr>
+#1 43324 19 12  10 14  10 10
+#2 43331 20 03  11 02  10 12
+#3 43334 20 04  11 04  10 13
+#4 43336 19 13  11 04  11 01
+#5 43339 19 06  10 08  10 06
+#6 43340 NA     NA     NA   
+#7 43341 19 06  11 00  11 01
+#8 43342 NA     NA     NA   
+#9 43343 19 09  11 00  10 12
 
+# skimr::skim(dogweights)
 
+# -- Data Summary ------------------------
+#                          Values    
+#Name                       dogweights
+#Number of rows             182       
+#Number of columns          4         
+#_______________________              
+#Column type frequency:               
+#  character                4         
+#________________________             
+#Group variables            None      
+
+#-- Variable type: character ----------------------------------------------------------------------------------------------------------
+# A tibble: 4 x 8
+#  skim_variable n_missing complete_rate   min   max empty n_unique whitespace
+#* <chr>             <int>         <dbl> <int> <int> <int>    <int>      <int>
+#1 DATE                  0         1         1     5     0      182          0
+#2 Raisin                3         0.984     4     5     0       45          0
+#3 Simone                8         0.956     4     5     0       33          0
+#4 Gagne                62         0.659     4     5     0       35          0
+```
+```{r, echo=FALSE}
+dogweights[77,] %>%  
+  knitr::kable(align = 'c', digits = 3)%>%
+  kable_styling(full_width = F) %>%
+column_spec(1, bold = T, color = "black") %>%
+  column_spec(2, width = "10em")
+```
+
+<HR style="FILTER: alpha(opacity=100,finishopacity=0,style=1)" width="80%" color=#987cb9 SIZE=3>
+### Import and clean data
+To produce the desired tidy dataset, we first need to read each table by `read_excel` and do some cleaning:
+
+* 1. Converting strings to date by `as.Date`. *(Don't forget to change the data format first)* We can also get the number of days easily with this function.
+
+* 2. We will show each Dogs' weights data only in Lbs so we use `separate` to divide Lbs and Oz first and then we can calculate the weights of dogs in Lbs by $Lbs = 16Oz$.
+
+Here is the head and tail of the clean data: (Left: Head, Right: Tail)
 ```{r}
 dogweights = read_excel("./data/dog _weights.xlsx", range = "B3:E185")[-77,] %>% 
   janitor::clean_names() %>% 
   mutate(
     date = as.Date(as.numeric(date), origin = "1899-12-30")) %>%
-  mutate(day_n = as.Date(date)-as.Date('2018-08-12')) %>%
+  # raisin
   separate(raisin, into = c("raisin_lbs", "raisin_os"), sep = " ") %>% 
   mutate(raisin_lbs = round(as.numeric(raisin_lbs) + as.numeric(raisin_os)/16, digits = 2)) %>%
+  # simone
   separate(simone, into = c("simone_lbs", "simone_os"), sep = " ") %>%
   mutate(simone_lbs = round(as.numeric(simone_lbs) + as.numeric(simone_os)/16, digits = 2)) %>%
+  # gagne
   separate(gagne, into = c("gagne_lbs", "gagne_os"), sep = " ") %>%
   mutate(gagne_lbs = round(as.numeric(gagne_lbs) + as.numeric(gagne_os)/16, digits = 2)) %>% 
-  select(day_n, date, raisin_lbs, simone_lbs, gagne_lbs)
+  select(date, raisin_lbs, simone_lbs, gagne_lbs)
 
-head(dogweights) %>% 
-  knitr::kable(align = 'c')
+cbind(dogweights[1:5,], dogweights[175:179,]) %>%  
+  knitr::kable(align = 'c', digits = 3)%>%
+  kable_styling(full_width = F) %>%
+column_spec(1, bold = T, color = "black") %>%
+  column_spec(2, width = "10em")
 ```
 
+From the tidy dataset, we can see the owner recorded three dogs' weights from 2018-08-12 (which is my birthday!omg) to 2020-06-13, 671 days in total. And we can do the visualization with this dataset now.
 
+<HR style="FILTER: alpha(opacity=100,finishopacity=0,style=1)" width="80%" color=#987cb9 SIZE=3>
+### Visualization
 
-## Visualization
+With our understanding of tidy data, we can recognize a problem: the Weights (Lbs) is spread across three columns, which correspond to three observation dogs Raisin, Simone, and Gagne. We can fix this problem using `pivot_longer`:
 
-### Weights of dogs
 ```{r}
 weights_time = 
   dogweights %>%
@@ -72,35 +134,55 @@ weights_time =
     Raisin:Gagne,
     names_to = "Name",
     values_to = "Weights")
+```
 
-plot_violin = 
+#### *Weights of dogs*
+We can get more information by placing cursor over the graph. (Mean, Median, Max/Min) There exist an outlier (7.94Lbs) in Raisin's weight that is not quite realistic so we think of it as a typo and remove it in the next analysis. What we can infer from the information in the plot is that Gagne and Simone may be small dogs of the same breed like Pomeranians, and Rasian is a bigger dog of another breed.
+```{r}
+plot_weights = 
   ggplot(weights_time, aes(x = Name, y = Weights, fill = Name)) +
   labs(title = "Weights of dogs",
        x = "Dog",
        y = "Lbs") + 
-  geom_violin(alpha = 0.5, size = 0.5, color = "blue") + 
-  stat_summary(fun.y = median, geom = "point", color = "blue", size = 3)
+  stat_summary(fun.y = median, geom = "point", color = "blue", size = 3) + 
+  geom_boxplot(alpha = 0.5, size = 0.5, color = "blue")
 
-ggplotly(plot_violin)
+ggplotly(plot_weights)
 ```
-Get rid of the outlier in Rasin.
 
+<HR style="FILTER: alpha(opacity=100,finishopacity=0,style=3)" width="80%" color=#987cb9 SIZE=1>
 
-
-
-#### Weights over time
-
+#### *Weights over time*
+*The light green shaded areas* mean that the dogs are not under the care of their owners during this time. If you use the `box select` in the menu of `Plotly` to zoom in these areas, you can find that the **dogs' weights continue to drop** until January 2019 because their owner was frequently boarding them with Weber or Kennel. After that, the dogs' weight rose slowly and steadily while their owners stayed with them. *The Light blue dashed lines* mean that dogs take haircuts on that day. In the enlarged picture, we can find that Raisin loses more weight after haircut than Gagne and Simone. So we can infer that Raisin is a kind of long-haired dog while the other two are not.
 ```{r}
 plot_time = 
   ggplot(weights_time[-364,], aes(x = date, y = Weights, color = Name)) +
   labs(title = "Weights over time",
+       subtitle = "Blue line: ",
        x = "Time",
        y = "Lbs") + 
-  geom_point(alpha = 0.5, size = 0.7) + 
-  geom_smooth(size = 0.5, alpha = .8, se = F) + 
-  geom_vline(xintercept = c(as.Date(43389,  origin = "1899-12-30"), as.Date(43974,  origin = "1899-12-30")), linetype="dashed", color = "red", size=2)
+  geom_point(alpha = 0.6, size = 0.7) + 
+  geom_smooth(size = 0.5, alpha = .9, se = F) + 
+  geom_vline(xintercept = c(as.numeric(as.Date(43389,  origin = "1899-12-30")), 
+                            as.numeric(as.Date(43974,  origin = "1899-12-30"))), 
+             linetype="dashed", color = "light blue", size=.3) + 
+  annotate("text", x = as.Date(43780,  origin = "1899-12-30"), y = 8.2, label="Gagne died:(") + 
+  annotate("text", x = c(as.Date(43389,  origin = "1899-12-30"), 
+                         as.Date(43974,  origin = "1899-12-30")), y = 7.5, label="Hair cut") + 
+  annotate("rect", xmin=as.Date(43336,  origin = "1899-12-30"), xmax=as.Date(43339,  origin = "1899-12-30"), ymin=9, ymax=20, alpha=.2,fill="light green") + 
+  annotate("rect", xmin=as.Date(43359,  origin = "1899-12-30"), xmax=as.Date(43374,  origin = "1899-12-30"), ymin=9, ymax=20, alpha=.2,fill="light green") + 
+  annotate("rect", xmin=as.Date(43377,  origin = "1899-12-30"), xmax=as.Date(43382,  origin = "1899-12-30"), ymin=9, ymax=20, alpha=.2,fill="light green") + 
+  annotate("rect", xmin=as.Date(43410,  origin = "1899-12-30"), xmax=as.Date(43422,  origin = "1899-12-30"), ymin=9, ymax=20, alpha=.2,fill="light green") + 
+  annotate("rect", xmin=as.Date(43452,  origin = "1899-12-30"), xmax=as.Date(43473,  origin = "1899-12-30"), ymin=9, ymax=20, alpha=.2,fill="light green") + 
+  annotate("rect", xmin=as.Date(43760,  origin = "1899-12-30"), xmax=as.Date(43773,  origin = "1899-12-30"), ymin=9, ymax=20, alpha=.2,fill="light green") + 
+  annotate("rect", xmin=as.Date(43859,  origin = "1899-12-30"), xmax=as.Date(43864,  origin = "1899-12-30"), ymin=9, ymax=20, alpha=.2,fill="light green")
 
 ggplotly(plot_time)
 ```
 
+<HR style="FILTER: alpha(opacity=100,finishopacity=0,style=1)" width="80%" color=#987cb9 SIZE=3>
+### Discussion
 
+RIP for Gagne first. We can see that in the last months of its life it's losing weight little by little:(. I can't imagine how she must feel.
+
+We should spend as much time as possible with our lovely dogs and take care of them ourselves so that they can accompany us through a longer and happier life. Also, we can see that the weight of the dogs tended to move in the same direction (up and down), and it was clear that they were fed the same way. I suspect that the relatively haphazard way owners feed them (a little more one day and a little less the next) does not follow scientific method (*Resting energy requirement (18 lb dog) = 339 cal*), which causes the dogs' weight to fluctuate in a short period. Of course, many factors are affecting the weight of the hand, these are just my guesses based on the data. By the way, I envy her so much for having so many dogs, because I love dogs very much.

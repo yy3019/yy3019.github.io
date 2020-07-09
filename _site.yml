@@ -5,8 +5,6 @@ navbar:
   right:
     - text: "Resume"
       href: Resume.html
-    - text: "Dashboard"
-      href: dashboard.html
     - text: "Dog weights"
       href: Dog-weights.html
     - icon: fa-envelope fa-lg
