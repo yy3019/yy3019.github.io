@@ -1,0 +1,59 @@
+url: "hanchaozhang.xyz "
+# baseurl: /yy3019.github.io
+# Basic Information 
+title: Yuanzhi (Fisher) Yu
+# subtitle:
+position: Ph.D. Candidate
+subposition_link: https://www.feinberg.northwestern.edu/sites/hsip/student-directory/current-students.html#page-3
+affiliation: Northwestern University
+subaffiliation: Feinberg School of Medicine  
+affiliation_link: https://www.feinberg.northwestern.edu/
+subaffiliation_link: https://www.feinberg.northwestern.edu/sites/hsip/
+email: yuanzhi.yu@northwestern.edu
+address: 680 N Lake Shore Dr, Chicago, IL 60611
+address_link: https://maps.app.goo.gl/zrkhXJW15fpJ1smD7
+
+
+
+# Search Engine Optimization (SEO)
+# The following information is used to improve the website traffic from search engines, e.g., Google.
+keywords: minimal light
+description: The Minimal Light is a simple and elegant jekyll theme for academic personal homepage.
+canonical: https://minimal-light-theme.yliu.me/
+
+# Links 
+# If you don't need one of them, you may delete the corresponding line.
+google_scholar: https://scholar.google.com/citations?hl=en&user=tGpn9SwAAAAJ
+cv_link: assets/files/Yuanzhi_Yu_CV.pdf
+github_link: https://github.com/yy3019
+linkedin: https://www.linkedin.com/in/yuanzhi-yu/
+
+# Images (e.g., your profile picture and your website's favicon) 
+# "favicon" and "favicon_dark" are used for the light and dark modes, respectively. 
+avatar: ./assets/img/YYZ.png
+# logo: ./assets/img/logo.png
+favicon: ./assets/img/northwestern-university.svg
+favicon_dark: ./assets/img/northwestern-university.svg
+
+# Footnote
+# You may use the option to disable the footnote, "Powered by Jekyll and Minimal Light theme."
+enable_footnote: false
+
+# Google Analytics ID
+# Please remove this if you don't use Google Analytics
+#google_analytics: UA-111540567-4
+
+# Use this project as a remote theme for GitHub Pages
+# See the guide here: https://docs.github.com/en/pages/setting-up-a-github-pages-site-with-jekyll/adding-a-theme-to-your-github-pages-site-using-jekyll
+remote_theme: yaoyao-liu/minimal-light
+
+# The following files will be removed from the generated website.
+exclude:
+  - Gemfile
+  - Gemfile.lock
+  - README.md
+  - README_zh_Hans.md
+  - README_zh_Hant.md
+  - README_de.md
+  - LICENSE
+  - minimal-light.gemspec
